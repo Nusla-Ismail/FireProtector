@@ -1,3 +1,4 @@
+import 'package:fireprotector/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,16 +26,10 @@ class RoundedInputField extends StatelessWidget {
         ),
         filled: true,
         fillColor: Color(0xffFAFAFA),
-        // enabledBorder: OutlineInputBorder(
-        //     borderRadius: BorderRadius.circular(6.r),
-        //     borderSide: BorderSide(color: kSecondaryColor, width: 2)),
-        // disabledBorder: OutlineInputBorder(
-        //     borderRadius: BorderRadius.circular(6.r),
-        //     borderSide: BorderSide(color: kSecondaryColor, width: 2)),
-        // focusedBorder: OutlineInputBorder(
-        //     borderRadius: BorderRadius.circular(6.r),
-        //     borderSide: BorderSide(color: kSecondaryColor, width: 2)),
-      ),
-    );
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6.r),
+            borderSide: BorderSide(color: kGrey, width: 2)),
+        ),
+      );
   }
 }
