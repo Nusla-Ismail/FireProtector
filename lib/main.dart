@@ -1,10 +1,8 @@
 import 'package:fireprotector/constants.dart';
 import 'package:fireprotector/views/login.dart';
-import 'package:fireprotector/widgets/rounded_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,14 +26,15 @@ class MyApp extends StatelessWidget {
                 headline1: GoogleFonts.outfit(
                   fontSize: 30.sp,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 headline2: GoogleFonts.outfit(
                   fontSize: 24.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffF6F6F7),
                 ),
                 button: TextStyle(
+                  fontFamily: 'Google',
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
@@ -45,22 +44,26 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
-                labelLarge: TextStyle(
+                headline4: TextStyle(
+                  fontFamily: 'Google',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: kLabelColor,
+                  color: Color(0xffB6B8C2),
                 ),
-                labelMedium: TextStyle(
+                bodyText1: TextStyle(
+                  fontFamily: 'Google',
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
-                labelSmall: TextStyle(
+                bodyText2: TextStyle(
+                  fontFamily: 'Google',
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
-                bodyMedium: TextStyle(
+                overline: TextStyle(
+                  fontFamily: 'Google',
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
@@ -70,7 +73,8 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
-                bodySmall: TextStyle(
+                subtitle2: TextStyle(
+                  fontFamily: 'Google',
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                   color: kLabelColor,

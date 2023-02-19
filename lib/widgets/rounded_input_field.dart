@@ -5,30 +5,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RoundedInputField extends StatelessWidget {
 
+  final String labelText;
+  final bool isPassword;
+
+  const RoundedInputField({super.key, required this.labelText, this.isPassword=false});
+
   @override
   Widget build(BuildContext context) {
     return TextField(
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.start,
       textInputAction: TextInputAction.done,
+      obscureText: isPassword ? true : false,
+      enableSuggestions: isPassword ? false : true,
+      style:Theme.of(context).textTheme.headline4,
       decoration: InputDecoration(
-        isDense: true,
-        labelText: "labelText",
-        labelStyle: TextStyle(
-          fontFamily: "SF",
-          fontWeight: FontWeight.w500,
-          fontSize: 18.sp,
-        ),
-        floatingLabelStyle: TextStyle(
-          fontFamily: "SF",
-          fontWeight: FontWeight.w600,
-          fontSize: 20.sp,
-          color: Colors.black,
-        ),
-        filled: true,
-        fillColor: Color(0xffFAFAFA),
-        border: OutlineInputBorder(
+        suffixIcon: isPassword ? Icon(Icons.visibility, color: Color(0xffB6B8C2),) : null,
+        labelText: labelText,
+        labelStyle: Theme.of(context).textTheme.headline4,
+        enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.r),
-            borderSide: BorderSide(color: kGrey, width: 2)),
+            borderSide: BorderSide(color: Color(0xff3E4350), width: 1)),
         ),
       );
   }
