@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/rounded_input_field.dart';
 
-class Home extends StatelessWidget {
+class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
