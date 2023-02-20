@@ -1,13 +1,14 @@
-import 'package:fireprotector/views/register.dart';
-import 'package:fireprotector/widgets/button.dart';
+import 'package:fireprotector/views/login.dart';
+import 'package:fireprotector/widgets/underlined_input_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../widgets/button.dart';
 import '../widgets/rounded_input_field.dart';
 
-class Login extends StatelessWidget {
+class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -32,55 +33,53 @@ class Login extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 50.h,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40.w),
-                        child: Image.asset("assets/images/logo.png"),
-                      ),
-                      SizedBox(
                         height: 80.h,
                       ),
                       Text(
-                        "Login Details",
+                        "Sign up Details",
                         style: Theme.of(context).textTheme.headline2,
                       ),
                       SizedBox(
+                        height: 50.h,
+                      ),
+                      UnderlinedInputField(labelText: "Name"),
+                      SizedBox(
                         height: 30.h,
                       ),
-                      RoundedInputField(labelText: "Email Address"),
+                      UnderlinedInputField(labelText: "Email"),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      UnderlinedInputField(labelText: "Email"),
                       SizedBox(
                         height: 20.h,
                       ),
-                      RoundedInputField(labelText: "Password", isPassword: true),
+                      UnderlinedInputField(labelText: "Password", isPassword: true),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      UnderlinedInputField(labelText: "Re-enter Password", isPassword: true),
                       SizedBox(
                         height: 15.h,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Forgot Password ?",
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
                       ),
                       SizedBox(
                         height: 80.h,
                       ),
-                      Button(onPressed: (){}, text: "Login"),
+                      Button(onPressed: (){}, text: "Sign Up"),
                       Expanded(child: SizedBox()),
                       RichText(
                         text: TextSpan(
-                          text: 'Don’t you have an account?  ',
+                          text: 'Do you have an account?  ',
                           style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.white),
                           children: <TextSpan>[
                             TextSpan(
                               recognizer: TapGestureRecognizer()..onTap = (){
                                 Navigator.push(
                                   context,
-                                  CupertinoPageRoute(builder: (context) => Register()),
+                                  CupertinoPageRoute(builder: (context) => Login()),
                                 );
                               },
-                              text: 'Sign Up',
+                              text: 'Login',
                               style: TextStyle(
                                 fontFamily: 'Google',
                                 fontSize: 13.sp,
