@@ -11,59 +11,88 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            color: Color(0xff212121),
-            image: DecorationImage(
-              image: AssetImage("assets/back_design.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 50.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40.w),
-                  child: Image.asset("assets/logo.png"),
-                ),
-                SizedBox(
-                  height: 80.h,
-                ),
-                Text(
-                  "Login Details",
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                RoundedInputField(labelText: "Email Address"),
-                SizedBox(
-                  height: 20.h,
-                ),
-                RoundedInputField(labelText: "Password", isPassword: true),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "Forgot Password ?",
-                    style: Theme.of(context).textTheme.headline4,
+        resizeToAvoidBottomInset: false,
+        body: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xff212121),
+                  image: DecorationImage(
+                    image: AssetImage("assets/back_design.png"),
+                    fit: BoxFit.fill,
                   ),
                 ),
-                SizedBox(
-                  height: 80.h,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 50.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.w),
+                        child: Image.asset("assets/logo.png"),
+                      ),
+                      SizedBox(
+                        height: 80.h,
+                      ),
+                      Text(
+                        "Login Details",
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      RoundedInputField(labelText: "Email Address"),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      RoundedInputField(labelText: "Password", isPassword: true),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "Forgot Password ?",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 80.h,
+                      ),
+                      Button(onPressed: (){}, text: "Login"),
+                      Expanded(child: SizedBox()),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Don’t you have an account?  ',
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Sign Up',
+                              style: TextStyle(
+                                fontFamily: 'Google',
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                    ],
+                  ),
                 ),
-                Button(onPressed: (){}, text: "Login"),
-                Expanded(child: SizedBox()),
-              ],
-            ),
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

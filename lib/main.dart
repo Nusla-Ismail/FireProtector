@@ -58,14 +58,8 @@ class MyApp extends StatelessWidget {
                 ),
                 bodyText2: TextStyle(
                   fontFamily: 'Google',
-                  fontSize: 13.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
-                overline: TextStyle(
-                  fontFamily: 'Google',
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w500,
                   color: Colors.black,
                 ),
                 subtitle1: GoogleFonts.outfit(
