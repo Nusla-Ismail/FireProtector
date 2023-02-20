@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 const Color kPrimaryColor = Color(0xff5463FF);
-const Color kGrey  = Color(0xff887E7E);
-final Color kLabelColor= Color(0xff635C5C);
+const Color kHeading = Color(0xffF6F6F7);
+const Color kGrey  = Color(0xff3E4350);
+final Color kLabelColor= Color(0xffB6B8C2);
 final Color kRed = Color(0xffFF3434);

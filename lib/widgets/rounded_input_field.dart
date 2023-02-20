@@ -24,10 +24,10 @@ class RoundedInputField extends StatelessWidget {
         labelStyle: Theme.of(context).textTheme.headline4,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.r),
-            borderSide: BorderSide(color: Color(0xff3E4350), width: 1)),
+            borderSide: BorderSide(color: kGrey, width: 1)),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.r),
-            borderSide: BorderSide(color: Color(0xff3E4350), width: 1)),
+            borderSide: BorderSide(color: kGrey, width: 1)),
         ),
       );
   }

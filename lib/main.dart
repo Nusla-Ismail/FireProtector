@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
                 headline2: GoogleFonts.outfit(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xffF6F6F7),
+                  color: kHeading,
                 ),
                 button: TextStyle(
                   fontFamily: 'Google',
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'Google',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xffB6B8C2),
+                  color: kLabelColor,
                 ),
                 bodyText1: TextStyle(
                   fontFamily: 'Google',
