@@ -1,4 +1,5 @@
 import 'package:fireprotector/constants.dart';
+import 'package:fireprotector/views/home.dart';
 import 'package:fireprotector/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
                 headline1: GoogleFonts.outfit(
                   fontSize: 30.sp,
                   fontWeight: FontWeight.w700,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 headline2: GoogleFonts.outfit(
                   fontSize: 24.sp,
@@ -75,7 +76,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            home: Login()
+            home: Home(),
           );
         });
   }
