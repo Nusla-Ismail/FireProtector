@@ -75,6 +75,17 @@ class Home extends StatelessWidget {
               SizedBox(
                 height: 40.h,
               ),
+              Container(
+                height: 300,
+                width: double.infinity,
+                color: Colors.amber,
+                child: Center(
+                    child: Text(
+                      "Live Video",
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                ),
+              ),
             ],
           ),
         ),
