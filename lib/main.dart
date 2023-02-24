@@ -1,5 +1,5 @@
 import 'package:fireprotector/constants.dart';
-import 'package:fireprotector/views/home.dart';
+import 'package:fireprotector/views/page_selector.dart';
 import 'package:fireprotector/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            home: Home(),
+            home: PageSelector(),
           );
         });
   }
