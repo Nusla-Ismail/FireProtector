@@ -39,6 +39,7 @@ dependencies:
   flutter_screenutil: ^5.6.1
   provider: ^6.0.5
   google_fonts: ^4.0.3
+  convex_bottom_bar: 3.1.0
 
 dev_dependencies:
   flutter_test:
