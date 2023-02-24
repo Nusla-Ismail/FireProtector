@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Updates extends StatelessWidget {
-  const Updates({Key? key}) : super(key: key);
+class PreviousFires extends StatelessWidget {
+  const PreviousFires({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "Updates",
+            "Previous Fires",
             style: Theme.of(context).textTheme.headline1
         ),
         centerTitle: true,

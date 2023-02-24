@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:fireprotector/constants.dart';
+import 'package:fireprotector/views/previous_fires.dart';
 import 'package:fireprotector/views/updates.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,64 +49,7 @@ class _HomeState extends State<PageSelector> with SingleTickerProviderStateMixin
         children: [
           Home(),
           Updates(),
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/main_back.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(6.r)),
-                      border: Border.all(color: kRed, width: 2),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(2.w),
-                      child: Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.horizontal(left: Radius.circular(4.r)),
-                              color: kRed,
-                            ),
-                            padding: EdgeInsets.all(7.w),
-                            child: Image.asset("assets/images/announcement_icon.png", width: 25.w),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Flexible(
-                            child: Text(
-                              "Fire Station is not aware about the fire",
-                              style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18.sp),
-                              maxLines: null,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  Container(
-                    height: 300,
-                    width: double.infinity,
-                    color: Colors.amber,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          PreviousFires(),
         ],
       )
     );
