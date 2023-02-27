@@ -1,3 +1,4 @@
+import 'package:fireprotector/views/page_selector.dart';
 import 'package:fireprotector/views/register.dart';
 import 'package:fireprotector/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
@@ -66,7 +67,14 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 80.h,
                       ),
-                      Button(onPressed: (){}, text: "Login"),
+                      Button(
+                          onPressed: (){
+                            Navigator.pushReplacement(
+                              context,
+                              CupertinoPageRoute(builder: (context) => PageSelector()),
+                            );
+                          },
+                          text: "Login"),
                       Expanded(child: SizedBox()),
                       RichText(
                         text: TextSpan(
