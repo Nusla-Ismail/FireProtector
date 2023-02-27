@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/button.dart';
+import '../widgets/large_button.dart';
 import '../widgets/rounded_input_field.dart';
 
 class Register extends StatelessWidget {
@@ -65,7 +65,7 @@ class Register extends StatelessWidget {
                       SizedBox(
                         height: 80.h,
                       ),
-                      Button(onPressed: (){}, text: "Sign Up"),
+                      LargeButton(onPressed: (){}, text: "Sign Up"),
                       Expanded(child: SizedBox()),
                       RichText(
                         text: TextSpan(

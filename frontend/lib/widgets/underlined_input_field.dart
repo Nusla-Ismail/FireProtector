@@ -26,10 +26,10 @@ class UnderlinedInputField extends StatelessWidget {
         hintStyle: Theme.of(context).textTheme.headline4,
         isDense: true,
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: kGrey, width: 1)
+          borderSide: BorderSide(color: kAsh, width: 1)
         ),
         enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: kGrey, width: 1)
+            borderSide: BorderSide(color: kAsh, width: 1)
         ),
       ),
     );

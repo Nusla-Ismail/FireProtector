@@ -1,6 +1,6 @@
 import 'package:fireprotector/views/page_selector.dart';
 import 'package:fireprotector/views/register.dart';
-import 'package:fireprotector/widgets/button.dart';
+import 'package:fireprotector/widgets/large_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 80.h,
                       ),
-                      Button(
+                      LargeButton(
                           onPressed: (){
                             Navigator.pushReplacement(
                               context,

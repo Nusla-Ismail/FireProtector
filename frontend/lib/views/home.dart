@@ -1,3 +1,5 @@
+import 'package:fireprotector/widgets/large_button.dart';
+import 'package:fireprotector/widgets/medium_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,16 +57,16 @@ class Home extends StatelessWidget {
                           borderRadius: BorderRadius.horizontal(left: Radius.circular(4.r)),
                           color: kRed,
                         ),
-                        padding: EdgeInsets.all(7.w),
-                        child: Image.asset("assets/images/announcement_icon.png", width: 25.w),
+                        padding: EdgeInsets.all(6.w),
+                        child: Image.asset("assets/images/announcement_icon.png", width: 22.w),
                       ),
                       SizedBox(
-                        width: 5.w,
+                        width: 7.w,
                       ),
                       Flexible(
                         child: Text(
                           "Fire Station is not aware about the fire",
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18.sp),
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16.sp),
                           maxLines: null,
                         ),
                       ),
@@ -73,7 +75,7 @@ class Home extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 40.h,
+                height: 30.h,
               ),
               Container(
                 height: 300,
@@ -85,6 +87,23 @@ class Home extends StatelessWidget {
                       style: Theme.of(context).textTheme.button,
                     ),
                 ),
+              ),
+              Expanded(child: SizedBox()),
+              MediumButton(
+                onPressed: (){},
+                text: "Contact Emergency Team",
+                color: kBtnAsh,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              MediumButton(
+                onPressed: (){},
+                text: "False Alarm",
+                color: kRed,
+              ),
+              SizedBox(
+                height: 40.h,
               ),
             ],
           ),

@@ -60,19 +60,20 @@ class MyApp extends StatelessWidget {
                 bodyText2: TextStyle(
                   fontFamily: 'Google',
                   fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                   color: Colors.black,
                 ),
-                subtitle1: GoogleFonts.outfit(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                subtitle1: TextStyle(
+                  fontFamily: 'Google',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
                 ),
                 subtitle2: TextStyle(
                   fontFamily: 'Google',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: kLabelColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
                 ),
               ),
             ),

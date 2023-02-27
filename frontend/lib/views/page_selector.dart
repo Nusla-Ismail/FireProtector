@@ -33,6 +33,7 @@ class _HomeState extends State<PageSelector> with SingleTickerProviderStateMixin
           style: Style(),
           child: ConvexAppBar(
             top: -15.h,
+            curveSize: 60,
             controller: controller,
             backgroundColor: kPrimaryColor,
             color: Colors.white,
