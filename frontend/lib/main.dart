@@ -40,10 +40,11 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
                 ),
-                headline3: GoogleFonts.outfit(
-                  fontSize: 16.sp,
+                headline3: TextStyle(
+                  fontFamily: 'Google',
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                  color: kBtnAsh,
                 ),
                 headline4: TextStyle(
                   fontFamily: 'Google',

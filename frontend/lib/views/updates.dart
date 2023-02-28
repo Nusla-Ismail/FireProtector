@@ -69,6 +69,7 @@ class _UpdatesState extends State<Updates> {
                               child: IconStepper(
                                 alignment: Alignment.topLeft,
                                 enableStepTapping: false,
+                                activeStepBorderPadding: 3,
                                 stepColor: kPrimaryColor.withOpacity(0.25),
                                 activeStepColor: kPrimaryColor,
                                 activeStepBorderColor: kPrimaryColor,
@@ -107,7 +108,7 @@ class _UpdatesState extends State<Updates> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 18.h,
+                                  height: 15.h,
                                 ),
                                 Text(
                                   "Notified to Emergency Team",
@@ -121,7 +122,7 @@ class _UpdatesState extends State<Updates> {
                                   style: Theme.of(context).textTheme.subtitle2,
                                 ),
                                 SizedBox(
-                                  height: 48.h,
+                                  height: 42.h,
                                 ),
                                 SizedBox(
                                   height: 20.h,
