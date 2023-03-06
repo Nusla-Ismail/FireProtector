@@ -1,3 +1,4 @@
+import 'package:fireprotector/views/contact.dart';
 import 'package:fireprotector/widgets/large_button.dart';
 import 'package:fireprotector/widgets/medium_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +25,12 @@ class Home extends StatelessWidget {
               Icons.contact_support_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => Contact()),
+              );
+            },
           )
         ],
       ),

@@ -52,6 +52,13 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: kLabelColor,
                 ),
+                headline5: TextStyle(
+                  fontFamily: 'Google',
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w500,
+                  height: 1.4,
+                  color: kBtnAsh,
+                ),
                 bodyText1: TextStyle(
                   fontFamily: 'Google',
                   fontSize: 15.sp,
