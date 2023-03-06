@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireprotector/views/page_selector.dart';
 import 'package:fireprotector/views/register.dart';
 import 'package:fireprotector/widgets/large_button.dart';
@@ -9,6 +10,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/rounded_input_field.dart';
 
 class Login extends StatelessWidget {
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void signUserIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +60,11 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
-                      RoundedInputField(labelText: "Email Address"),
+                      RoundedInputField(labelText: "Email Address", controller: emailController),
                       SizedBox(
                         height: 20.h,
                       ),
-                      RoundedInputField(labelText: "Password", isPassword: true),
+                      RoundedInputField(labelText: "Password", isPassword: true, controller: passwordController),
                       SizedBox(
                         height: 15.h,
                       ),
@@ -69,10 +80,7 @@ class Login extends StatelessWidget {
                       ),
                       LargeButton(
                           onPressed: (){
-                            Navigator.pushReplacement(
-                              context,
-                              CupertinoPageRoute(builder: (context) => PageSelector()),
-                            );
+                            signUserIn();
                           },
                           text: "Login"),
                       Expanded(child: SizedBox()),

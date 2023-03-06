@@ -7,12 +7,14 @@ class RoundedInputField extends StatelessWidget {
 
   final String labelText;
   final bool isPassword;
+  final TextEditingController controller;
 
-  const RoundedInputField({super.key, required this.labelText, this.isPassword=false});
+  const RoundedInputField({super.key, required this.labelText, this.isPassword=false, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       textAlign: TextAlign.start,
       textInputAction: TextInputAction.done,
       obscureText: isPassword ? true : false,

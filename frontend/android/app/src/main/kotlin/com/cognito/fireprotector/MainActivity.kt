@@ -1,4 +1,4 @@
-package com.cognito.fireprotector.fireprotector
+package com.cognito.fireprotector
 
 import io.flutter.embedding.android.FlutterActivity
 
