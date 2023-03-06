@@ -12,9 +12,10 @@ class Contact extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(elevation: 0,backgroundColor: Colors.transparent),
         backgroundColor: kPrimaryColor,
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 26.h, horizontal: 15.w),
+          padding: EdgeInsets.fromLTRB(15.w, 0.h, 15.w, 26.h),
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -29,19 +30,19 @@ class Contact extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 15.h),
                     Text(
                         "Contact Us",
                         style: Theme.of(context).textTheme.headline1?.copyWith(color: kAsh)
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 15.h,
                     ),
                     Text(
                         "If you have any problems or if you need any help, please contact us on following ways!",
                         style: Theme.of(context).textTheme.headline5
                     ),
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 30.h),
                     Card(
                       elevation: 8,
                       shape: RoundedRectangleBorder(
@@ -61,7 +62,7 @@ class Contact extends StatelessWidget {
                                   color: kBtnAsh,
                                 ),
                             ),
-                            SizedBox(height: 35.h),
+                            SizedBox(height: 30.h),
                             Row(
                               children: [
                                 Image.asset("assets/images/email.png", width: 40.w),
@@ -95,7 +96,7 @@ class Contact extends StatelessWidget {
                                   color: kBtnAsh,
                                 ),
                             ),
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 15.h),
                             Text(
                               "Mon - Fri : 8.30 a.m to 5.00 p.m",
                               style: TextStyle(
@@ -106,7 +107,7 @@ class Contact extends StatelessWidget {
                                 color: kBtnAsh,
                               ),
                             ),
-                            SizedBox(height: 35.h),
+                            SizedBox(height: 30.h),
                             Row(
                               children: [
                                 Image.asset("assets/images/phone.png", width: 40.w),

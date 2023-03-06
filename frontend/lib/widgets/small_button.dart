@@ -28,7 +28,7 @@ class SmallButton extends StatelessWidget {
           text,
           style: GoogleFonts.outfit(
             fontSize: 18.sp,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             color: Colors.white,
           ),
         ),
