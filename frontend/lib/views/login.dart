@@ -8,17 +8,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/rounded_input_field.dart';
+import '../widgets/toast.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
-  void signUserIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+  void signUserIn(BuildContext context) async {
+
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+    );
+
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
-    );
+      );
+    } on FirebaseAuthException catch (e){
+      if (e.code == 'user-not-found') {
+        ToastBar(text: 'No user found for that email', color: Colors.red).show();
+      } else if (e.code == 'wrong-password') {
+        ToastBar(text: 'Incorrect Password', color: Colors.red).show();
+      } else if (e.code == 'invalid-email') {
+        ToastBar(text: 'Email is invalid', color: Colors.red).show();
+      }
+    }
+
+    Navigator.pop(context);
+
   }
 
   @override
@@ -80,7 +110,13 @@ class Login extends StatelessWidget {
                       ),
                       LargeButton(
                           onPressed: (){
-                            signUserIn();
+                            if (emailController.text.trim().isEmpty || passwordController.text.trim().isEmpty) {
+                              ToastBar(text: 'Please fill all the fields!', color: Colors.red).show();
+                            } else {
+                              ToastBar(text: 'Please wait...', color: Colors.orange).show();
+
+                              signUserIn(context);
+                            }
                           },
                           text: "Login"),
                       Expanded(child: SizedBox()),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireprotector/views/contact.dart';
 import 'package:fireprotector/widgets/large_button.dart';
 import 'package:fireprotector/widgets/medium_button.dart';
@@ -104,7 +105,9 @@ class Home extends StatelessWidget {
                 height: 20.h,
               ),
               MediumButton(
-                onPressed: (){},
+                onPressed: (){
+                  FirebaseAuth.instance.signOut();
+                },
                 text: "False Alarm",
                 color: kRed,
               ),
