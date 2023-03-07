@@ -18,10 +18,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
 
-  void signUserIn(BuildContext context) async {
+  void signIn(BuildContext context) async {
 
     showDialog(
         context: context,
@@ -115,7 +114,7 @@ class _LoginState extends State<Login> {
                             } else {
                               ToastBar(text: 'Please wait...', color: Colors.orange).show();
 
-                              signUserIn(context);
+                              signIn(context);
                             }
                           },
                           text: "Login"),

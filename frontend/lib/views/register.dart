@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireprotector/views/login.dart';
 import 'package:fireprotector/widgets/underlined_input_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +8,50 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/large_button.dart';
 import '../widgets/rounded_input_field.dart';
+import '../widgets/toast.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final fireController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  void signUp(BuildContext context) async {
+
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+    );
+
+    try{
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e){
+      if (e.code == 'weak-password') {
+        ToastBar(text: 'The password provided is too weak', color: Colors.red).show();
+      } else if (e.code == 'email-already-in-use') {
+        ToastBar(text: 'The account already exists for that email', color: Colors.red).show();
+      }
+    } catch (e) {
+      ToastBar(text: e.toString(), color: Colors.red).show();
+    }
+
+    Navigator.pop(context);
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,30 +85,34 @@ class Register extends StatelessWidget {
                       SizedBox(
                         height: 50.h,
                       ),
-                      UnderlinedInputField(labelText: "Name"),
+                      UnderlinedInputField(labelText: "Name", controller: nameController),
                       SizedBox(
                         height: 30.h,
                       ),
-                      UnderlinedInputField(labelText: "Email"),
+                      UnderlinedInputField(labelText: "Email", controller: emailController),
                       SizedBox(
                         height: 30.h,
                       ),
-                      UnderlinedInputField(labelText: "Email"),
+                      UnderlinedInputField(labelText: "Nearest Fire Station", controller: fireController),
                       SizedBox(
                         height: 20.h,
                       ),
-                      UnderlinedInputField(labelText: "Password", isPassword: true),
+                      UnderlinedInputField(labelText: "Password", isPassword: true, controller: passwordController),
                       SizedBox(
                         height: 20.h,
                       ),
-                      UnderlinedInputField(labelText: "Re-enter Password", isPassword: true),
+                      UnderlinedInputField(labelText: "Re-enter Password", isPassword: true, controller: confirmPasswordController),
                       SizedBox(
                         height: 15.h,
                       ),
                       SizedBox(
                         height: 80.h,
                       ),
-                      LargeButton(onPressed: (){}, text: "Sign Up"),
+                      LargeButton(
+                          onPressed: (){
+                            signUp(context);
+                            },
+                          text: "Sign Up"),
                       Expanded(child: SizedBox()),
                       RichText(
                         text: TextSpan(

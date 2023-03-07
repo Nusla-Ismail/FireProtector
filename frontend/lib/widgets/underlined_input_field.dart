@@ -8,12 +8,14 @@ class UnderlinedInputField extends StatelessWidget {
 
   final bool isPassword;
   final String labelText;
+  final TextEditingController controller;
 
-  const UnderlinedInputField({super.key, this.isPassword = false, required this.labelText});
+  const UnderlinedInputField({super.key, this.isPassword = false, required this.labelText, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       textAlignVertical: TextAlignVertical.bottom,
       textAlign: TextAlign.start,
       textInputAction: TextInputAction.done,
