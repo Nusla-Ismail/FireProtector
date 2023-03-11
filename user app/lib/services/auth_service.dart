@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireprotector/views/home.dart';
+import 'package:fireprotector/views/page_selector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class AuthService extends StatelessWidget {
       builder: (context, snapshot){
 
         if(snapshot.hasData){
-          return Home();
+          return PageSelector();
         }
         else{
           return Login();
