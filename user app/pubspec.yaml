@@ -45,6 +45,8 @@ dependencies:
   firebase_core: ^2.7.0
   firebase_auth: ^4.2.9
   fluttertoast: ^8.2.1
+  url_launcher: ^6.1.10
+  onesignal_flutter: ^3.5.1
 
 dev_dependencies:
   flutter_test:
