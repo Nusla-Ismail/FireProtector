@@ -36,6 +36,8 @@ class _LoginState extends State<Login> {
         email: emailController.text,
         password: passwordController.text,
       );
+
+      Navigator.pop(context);
     } on FirebaseAuthException catch (e){
       if (e.code == 'user-not-found') {
         ToastBar(text: 'No user found for that email', color: Colors.red).show();
@@ -44,9 +46,8 @@ class _LoginState extends State<Login> {
       } else if (e.code == 'invalid-email') {
         ToastBar(text: 'Email is invalid', color: Colors.red).show();
       }
+      Navigator.pop(context);
     }
-
-    Navigator.pop(context);
 
   }
 

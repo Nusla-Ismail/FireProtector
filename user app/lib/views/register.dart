@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fireprotector/views/home.dart';
 import 'package:fireprotector/views/login.dart';
 import 'package:fireprotector/widgets/underlined_input_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,6 +40,15 @@ class _RegisterState extends State<Register> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+              builder: (_) => Home())
+      );
+
+      ToastBar(text: 'Account created successfully', color: Colors.green).show();
+
     } on FirebaseAuthException catch (e){
       if (e.code == 'weak-password') {
         ToastBar(text: 'The password provided is too weak', color: Colors.red).show();

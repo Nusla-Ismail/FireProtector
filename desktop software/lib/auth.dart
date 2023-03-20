@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fireprotector_camera/home.dart';
+import 'package:fireprotector_camera/login.dart';
+import 'package:fireprotector_camera/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mindrate/login.dart';
-import 'package:mindrate/signup.dart';
 
 class Auth extends StatelessWidget {
   @override
@@ -11,7 +12,7 @@ class Auth extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return SignUp();
+          return Home();
         } else {
           return Login();
         }

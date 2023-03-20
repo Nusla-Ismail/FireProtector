@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fireprotector_camera/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mindrate/login.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -22,9 +22,6 @@ class SignUp extends StatelessWidget {
           children: [
             BackButton(
               color: Colors.white,
-            ),
-            SizedBox(
-              width: 600,
             ),
             Expanded(
               child: Container(
@@ -75,7 +72,7 @@ class SignUp extends StatelessWidget {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff696D77)),
+                                  BorderSide(color: Color(0xff696D77)),
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -106,7 +103,7 @@ class SignUp extends StatelessWidget {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff696D77)),
+                                  BorderSide(color: Color(0xff696D77)),
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -138,7 +135,7 @@ class SignUp extends StatelessWidget {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff696D77)),
+                                  BorderSide(color: Color(0xff696D77)),
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -170,7 +167,7 @@ class SignUp extends StatelessWidget {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff696D77)),
+                                  BorderSide(color: Color(0xff696D77)),
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -184,7 +181,7 @@ class SignUp extends StatelessWidget {
                               FirebaseAuth.instance.signOut();
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xffAAA3E9)),
+                                backgroundColor: Color(0xff5463FF)),
                             child: SizedBox(
                                 width: double.infinity,
                                 height: 50,
@@ -233,6 +230,9 @@ class SignUp extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              width: 600,
             ),
           ],
         ),

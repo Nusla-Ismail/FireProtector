@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fireprotector_camera/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mindrate/signup.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
@@ -52,9 +52,6 @@ class Login extends StatelessWidget {
           children: [
             BackButton(
               color: Colors.white,
-            ),
-            SizedBox(
-              width: 600,
             ),
             Expanded(
               child: Container(
@@ -117,7 +114,7 @@ class Login extends StatelessWidget {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff696D77)),
+                                  BorderSide(color: Color(0xff696D77)),
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -160,7 +157,7 @@ class Login extends StatelessWidget {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff696D77)),
+                                  BorderSide(color: Color(0xff696D77)),
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -213,7 +210,7 @@ class Login extends StatelessWidget {
                               signIn(context);
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xffAAA3E9)),
+                                backgroundColor: Color(0xff5463FF)),
                             child: SizedBox(
                                 width: double.infinity,
                                 height: 50,
@@ -266,6 +263,9 @@ class Login extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              width: 600,
             ),
           ],
         ),
