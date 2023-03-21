@@ -71,7 +71,6 @@ class Contact extends StatelessWidget {
                                 ),
                                 Expanded(
                                     child: SmallButton(
-                                        mailtoUrl: 'keshavkeshav612@gamil.com',
                                         text: "Send an email",
                                         color: kBtnAsh)),
                               ],
@@ -121,7 +120,6 @@ class Contact extends StatelessWidget {
                                 ),
                                 Expanded(
                                     child: SmallButton(
-                                        mailtoUrl: 'keshavkeshav612@gamil.com',
                                         text: "Make a phone call",
                                         color: kBtnAsh)),
                               ],

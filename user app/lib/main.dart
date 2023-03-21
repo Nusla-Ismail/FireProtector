@@ -6,9 +6,7 @@ import 'package:fireprotector/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'firebase_options.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -96,31 +94,5 @@ class MyApp extends StatelessWidget {
             home: AuthService(),
           );
         });
-  }
-}
-
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    OneSignal.shared.setLogLevel(OSLogLevel.debug, OSLogLevel.none);
-
-    OneSignal.shared.setAppId("d68fa529-b7ac-4e47-976a-e4101100595d");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("OneSignal"),),
-      body: Text("OneSignal PushNotification"),
-    );
   }
 }
