@@ -6,6 +6,7 @@ import 'package:marquee/marquee.dart';
 
 import '../constants.dart';
 import '../widgets/medium_button.dart';
+import 'contact.dart';
 
 class Updates extends StatefulWidget {
 
@@ -42,7 +43,12 @@ class _UpdatesState extends State<Updates> {
               Icons.contact_support_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => Contact()),
+              );
+            },
           )
         ],
       ),

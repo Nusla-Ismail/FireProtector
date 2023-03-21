@@ -17,15 +17,6 @@ class Confirmation extends StatelessWidget {
             style: Theme.of(context).textTheme.headline1
         ),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.contact_support_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          )
-        ],
       ),
       body: Container(
         decoration: BoxDecoration(

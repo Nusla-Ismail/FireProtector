@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'contact.dart';
+
 class Home extends StatelessWidget {
 
   @override
@@ -22,7 +24,12 @@ class Home extends StatelessWidget {
               Icons.contact_support_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => Contact()),
+              );
+            },
           )
         ],
       ),
