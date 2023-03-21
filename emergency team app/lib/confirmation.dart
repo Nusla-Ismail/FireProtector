@@ -1,3 +1,4 @@
+import 'package:fireprotector_emergency_team/updates.dart';
 import 'package:fireprotector_emergency_team/widgets/medium_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,11 @@ class Confirmation extends StatelessWidget {
               ),
               Expanded(child: SizedBox()),
               MediumButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => Updates()));
+                  },
                 text: "Confirm Fire",
                 color: kGreen,
               ),
