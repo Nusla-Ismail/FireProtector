@@ -5,6 +5,8 @@ import 'package:fireprotector/widgets/medium_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import '../constants.dart';
 
@@ -97,7 +99,7 @@ class Home extends StatelessWidget {
               ),
               Expanded(child: SizedBox()),
               MediumButton(
-                onPressed: (){},
+                onPressed: () => launch("tel://911"),
                 text: "Contact Emergency Team",
                 color: kBtnAsh,
               ),
