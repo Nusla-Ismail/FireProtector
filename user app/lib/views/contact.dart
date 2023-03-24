@@ -4,6 +4,7 @@ import 'package:fireprotector/widgets/small_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Contact extends StatelessWidget {
   const Contact({Key? key}) : super(key: key);
@@ -72,7 +73,24 @@ class Contact extends StatelessWidget {
                                 Expanded(
                                     child: SmallButton(
                                         text: "Send an email",
-                                        color: kBtnAsh)),
+                                        color: kBtnAsh,
+                                         onTap: () async {
+                                          final Uri params = Uri(
+                                            scheme: 'mailto',
+                                            path: 'tonyfergusonofficiall@gmail.com',
+                                          );
+                                          final String url = params.toString();
+                                          try {
+                                            if (await canLaunch(url)) {
+                                              await launch(url);
+                                            }
+                                          } catch (e) {
+                                            print('Error launching URL: $e');
+                                          }
+                                        },
+
+                                    ),
+                                ),
                               ],
                             ),
                           ],
