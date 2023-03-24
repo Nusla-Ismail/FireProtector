@@ -138,6 +138,7 @@ class Contact extends StatelessWidget {
                                 ),
                                 Expanded(
                                     child: SmallButton(
+                                      onTap: () => launch("tel://0777777777"),
                                         text: "Make a phone call",
                                         color: kBtnAsh)),
                               ],
