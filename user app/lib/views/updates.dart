@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:marquee/marquee.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
 import '../widgets/medium_button.dart';
@@ -236,7 +237,7 @@ class _UpdatesState extends State<Updates> {
                 height: 40.h,
               ),
               MediumButton(
-                onPressed: (){},
+                onPressed: () => launch("tel://911"),
                 text: "Contact Emergency Team",
                 color: kBtnAsh,
               ),
