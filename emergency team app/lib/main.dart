@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
