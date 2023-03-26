@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "762573453360",
+    "firebase_url": "https://fireprotector-c6a91-default-rtdb.firebaseio.com",
+    "project_id": "fireprotector-c6a91",
+    "storage_bucket": "fireprotector-c6a91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762573453360:android:20444d19b0be2600a055f5",
+        "android_client_info": {
+          "package_name": "com.cognito.fireprotector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762573453360-5nheq60416gm1lvt9jrndqtd06vf4fis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzpRhxk6WziP99hurhKGLrx7P0CVtd7qc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762573453360-5nheq60416gm1lvt9jrndqtd06vf4fis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
