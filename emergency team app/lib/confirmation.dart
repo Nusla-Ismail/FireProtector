@@ -49,9 +49,9 @@ class Confirmation extends StatelessWidget {
               MediumButton(
                 onPressed: (){
                   Navigator.push(
-                  context,
-                  CupertinoPageRoute(builder: (context) => Updates()));
-                  },
+                      context,
+                      CupertinoPageRoute(builder: (context) => Updates()));
+                },
                 text: "Confirm Fire",
                 color: kGreen,
               ),
