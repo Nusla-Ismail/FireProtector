@@ -148,6 +148,66 @@ class Contact extends StatelessWidget {
                       ),
                     ),
                     Expanded(child: SizedBox()),
+                    Card(
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20.h,
+                          horizontal: 20.w,
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Find Us",
+                              style: TextStyle(
+                                fontFamily: 'Google',
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                height: 1.4,
+                                color: kBtnAsh,
+                              ),
+                            ),
+                            SizedBox(height: 30.h),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  "assets/images/location.png",
+                                  width: 20.w,
+                                ),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                Expanded(
+                                  child: SmallButton(
+                                    onTap: () async {
+                                      // Launch maps application with company's address
+                                      final Uri params = Uri(
+                                        scheme: 'https',
+                                        host: 'www.google.com',
+                                        path: '/maps/search/',
+                                        query: 'query=123 Main St, Anytown, USA',
+                                      );
+                                      final String url = params.toString();
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
+                                    text: "Get Directions",
+                                    color: kBtnAsh,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
                   ],
                 ),
               ),
