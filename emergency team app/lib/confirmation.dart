@@ -1,3 +1,4 @@
+import 'package:fireprotector_emergency_team/main.dart';
 import 'package:fireprotector_emergency_team/updates.dart';
 import 'package:fireprotector_emergency_team/widgets/medium_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,7 +59,8 @@ class Confirmation extends StatelessWidget {
                 height: 20.h,
               ),
               MediumButton(
-                onPressed: (){},
+                onPressed: (){
+                },
                 text: "False Alarm",
                 color: kRed,
               ),
