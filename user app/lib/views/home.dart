@@ -108,11 +108,48 @@ class Home extends StatelessWidget {
               ),
               MediumButton(
                 onPressed: (){
-                  FirebaseAuth.instance.signOut();
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("False Alarm"),
+                        content: Text("Are you sure you want to report a false alarm? This will notify the fire station that no fire is detected."),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text("Cancel"),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          TextButton(
+                            child: Text("Confirm"),
+                            onPressed: () {
+                              FirebaseAuth.instance.signOut();
+                              Navigator.of(context).pop();
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("False Alarm Reported"),
+                                    content: Text("The fire station has been notified that no fire is detected."),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text("OK"),
+                                        onPressed: () => Navigator.of(context).pop(),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 text: "False Alarm",
                 color: kRed,
               ),
+
               SizedBox(
                 height: 40.h,
               ),
