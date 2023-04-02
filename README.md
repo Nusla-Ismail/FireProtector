@@ -3,11 +3,11 @@
 This is the repository of Team Incognito - SE3.
 This contains all the source code to build the FireProtector applications.
 To use this code the user must have installed: 
-Android Studio
-VS code
-python
-Dart
-Flutter
+Android Studio,
+VS code,
+python,
+Dart,
+Flutter.
 
 the user must install flutter and dart in the android studio extentions. After intalling to access the application on a physical device or an emulator user must figure out the flutter and dart SDK path. Once it is figured, the user has to open each application file seperately in android studio. 
 
