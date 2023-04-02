@@ -8,19 +8,15 @@ import '../views/login.dart';
 
 class AuthService extends StatelessWidget {
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  getCurrentUser(){
+    User? user = _auth.currentUser;
+    return user;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot){
-
-        if(snapshot.hasData){
-          return PageSelector();
-        }
-        else{
-          return Login();
-        }
-      },
-    );
+    return getCurrentUser() == null ? Login() : PageSelector();
   }
 }
