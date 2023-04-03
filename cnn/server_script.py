@@ -18,7 +18,7 @@ firestore_client = firestore.client()
 relay = MediaRelay()
 
 # Load the TFLite model and allocate tensors
-interpreter = tf.lite.Interpreter(model_path='Finalmodel2.tflite')
+interpreter = tf.lite.Interpreter(model_path="model.tflite")
 interpreter.allocate_tensors()
 
 # Get input and output tensors
@@ -30,9 +30,15 @@ class VideoTransformTrack(MediaStreamTrack):
     kind = "video"
     channel = None
 
-    correct_frames = 0
-    incorrect_frames = 0
-    fire_count =0
+    # Initialize the frame counter and FPS calculation.
+    frame_count = 0
+    start_time = time.time()
+
+    # Set up the video recording parameters.
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = None
+    recording = False
+    recording_start_time = 0
 
     def __init__(self, track):
         super().__init__()
@@ -44,47 +50,59 @@ class VideoTransformTrack(MediaStreamTrack):
         video_frame = await self.track.recv()
         frame = video_frame.to_rgb().to_ndarray()
 
-        # Preprocess the frame
-        img = cv2.resize(frame, (256, 256))
-        img = img / 255.0
-        img = np.expand_dims(img, axis=0)
-
-        # Set the input tensor
-        img = tf.image.convert_image_dtype(img, tf.float32)
-        interpreter.set_tensor(input_details[0]['index'], img)
-
-        # Run inference
-        interpreter.invoke()
-
-        # Get the output tensor
-        output_data = interpreter.get_tensor(output_details[0]['index'])
-
-        # Determine if the frame contains fire or not
-        if output_data[0][0] > 0.5:
-            fire = False
+        # Preprocess the input image.
+        resized = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
+        normalized = resized.astype('float32') / 255.0
+        input_data = np.expand_dims(normalized, axis=0)
+        
+        # Perform the inference.
+        try:
+            interpreter.set_tensor(input_details[0]['index'], input_data)
+            interpreter.invoke()
+            output_data = interpreter.get_tensor(output_details[0]['index'])
+        except Exception as e:
+            print("Error:",e)
+        
+        # Get the predicted class and confidence.
+        prediction = output_data[0][0]
+        if prediction < 0.5:
+            print("Fire")
+            if self.frame_count == 0:
+                self.recording = True
+                self.recording_start_time = time.time()
         else:
-            fire = True
-            self.fire_count+=1
+            print("Not Fire")
+            if self.recording:
+                self.recording = False
+                if self.out is not None:
+                    self.out.release()
+                    self.out = None
+        
 
-        print(fire)
+        # self.frame_count += 1
 
-        # Update frame rate and accuracy information every 10 frames
-        if self.fire_count>=10:
-            print('New Fire Detected!')
-
-            try:
-                # doc_ref = firestore_client.collection("Fire Case")
-                # doc_ref.add(
-                #     {
-                #     "name": "HP EliteBook Model 1",
-                #     "brand": "HP",
-                #     }
-                # )
-                self.fire_count=0
-            except Exception as e:
-                print(e)
+        # if self.frame_count % 10 == 0:
+        #     end_time = time.time()
+        #     fps = int(self.frame_count / (end_time - self.start_time))
+        #     print('FPS:', fps)
+        #     accuracy = round(prediction * 100, 2)
+        #     print('Accuracy:', accuracy, '%')
+        #     self.frame_count = 0
+        #     self.start_time = end_time
+        
+        # # Save the frames if fire is detected.
+        # if self.recording:
+        #     if self.out is None:
+        #         self.out = cv2.VideoWriter('video.mp4', self.fourcc, fps, (frame.shape[1], frame.shape[0]))
+        #     self.out.write(frame)
+        #     elapsed_time = time.time() - self.recording_start_time
+        #     if elapsed_time > 10 or self.out.get(cv2.CAP_PROP_POS_FRAMES) * self.out.get(cv2.CAP_PROP_FPS) * 0.000001 > 2:
+        #         self.recording = False
+        #         self.out.release()
+        #         self.out = None
 
         return video_frame
+    
 
 async def feed_server(request):
     params = await request.json()
