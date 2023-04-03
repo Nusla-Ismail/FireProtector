@@ -26,7 +26,9 @@ class _UpdatesState extends State<Updates> {
         padding: EdgeInsets.all(10.w),
         child: FloatingActionButton(
           elevation: 5,
-          onPressed: (){},
+          onPressed: (){
+
+          },
           backgroundColor: kPrimaryColor,
           child: Icon(Icons.location_on_outlined),
         ),
@@ -263,5 +265,6 @@ class _UpdatesState extends State<Updates> {
         ),
       ),
     );
+
   }
 }
