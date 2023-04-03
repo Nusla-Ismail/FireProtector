@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'contact.dart';
 
 class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -89,19 +89,19 @@ class Home extends StatelessWidget {
                                       SizedBox(
                                         width: 70.w,
                                         child: Text(
-                                          'Case ID',
-                                          style: Theme.of(context).textTheme.labelMedium
+                                            'Case ID',
+                                            style: Theme.of(context).textTheme.labelMedium
                                         ),
                                       ),
                                       Text(
-                                          ":",
+                                        ":",
                                         style: Theme.of(context).textTheme.labelMedium,
                                       ),
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                          "000123123123",
-                                          style: Theme.of(context).textTheme.bodyText1
+                                            "000123123123",
+                                            style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
                                     ],
@@ -118,19 +118,19 @@ class Home extends StatelessWidget {
                                       SizedBox(
                                         width: 70.w,
                                         child: Text(
-                                          'Date',
-                                          style: Theme.of(context).textTheme.labelMedium
+                                            'Date',
+                                            style: Theme.of(context).textTheme.labelMedium
                                         ),
                                       ),
                                       Text(
-                                          ":",
+                                        ":",
                                         style: Theme.of(context).textTheme.labelMedium,
                                       ),
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                          "2023/03/09",
-                                          style: Theme.of(context).textTheme.bodyText1
+                                            "2023/03/09",
+                                            style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
                                     ],

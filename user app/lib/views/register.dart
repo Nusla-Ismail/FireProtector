@@ -1,11 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:fireprotector/models/user_model.dart';
 import 'package:fireprotector/views/home.dart';
 import 'package:fireprotector/views/login.dart';
 import 'package:fireprotector/widgets/underlined_input_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../widgets/large_button.dart';
 import '../widgets/rounded_input_field.dart';
@@ -24,6 +28,16 @@ class _RegisterState extends State<Register> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  createUser(User user) async {
+    await _firestore
+        .collection('users')
+        .doc(user.uid)
+        .set({'name': user.name, 'id': user.uid, 'email': user.email});
+  }
+
   void signUp(BuildContext context) async {
 
     showDialog(
@@ -36,10 +50,18 @@ class _RegisterState extends State<Register> {
     );
 
     try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
+      Navigator.pop(context);
+
+      User user = User(_auth.currentUser!.uid, nameController.text.trim(), emailController.text.trim());
+
+      createUser(user);
+
+      ToastBar(text: 'Account created successfully', color: Colors.green).show();
 
       Navigator.push(
           context,
@@ -47,9 +69,8 @@ class _RegisterState extends State<Register> {
               builder: (_) => Home())
       );
 
-      ToastBar(text: 'Account created successfully', color: Colors.green).show();
-
-    } on FirebaseAuthException catch (e){
+    } on auth.FirebaseAuthException catch (e){
+      Navigator.pop(context);
       if (e.code == 'weak-password') {
         ToastBar(text: 'The password provided is too weak', color: Colors.red).show();
       } else if (e.code == 'email-already-in-use') {
@@ -58,9 +79,6 @@ class _RegisterState extends State<Register> {
     } catch (e) {
       ToastBar(text: e.toString(), color: Colors.red).show();
     }
-
-    Navigator.pop(context);
-
   }
 
   @override

@@ -37,6 +37,10 @@ dependencies:
   google_fonts: ^4.0.3
   im_stepper: ^1.0.1+1
   marquee: ^2.2.3
+  firebase_core: ^2.7.0
+  firebase_auth: ^4.2.9
+  fluttertoast: ^8.2.1
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:
