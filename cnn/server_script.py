@@ -51,7 +51,7 @@ class VideoTransformTrack(MediaStreamTrack):
         frame = video_frame.to_rgb().to_ndarray()
 
         # Preprocess the input image.
-        resized = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
+        resized = cv2.resize(frame, (256, 256), interpolation = cv2.INTER_AREA)
         normalized = resized.astype('float32') / 255.0
         input_data = np.expand_dims(normalized, axis=0)
         
@@ -79,27 +79,36 @@ class VideoTransformTrack(MediaStreamTrack):
                     self.out = None
         
 
-        # self.frame_count += 1
+        self.frame_count += 1
 
-        # if self.frame_count % 10 == 0:
-        #     end_time = time.time()
-        #     fps = int(self.frame_count / (end_time - self.start_time))
-        #     print('FPS:', fps)
-        #     accuracy = round(prediction * 100, 2)
-        #     print('Accuracy:', accuracy, '%')
-        #     self.frame_count = 0
-        #     self.start_time = end_time
+        if self.frame_count % 10 == 0:
+            end_time = time.time()
+            global fps
+            fps = int(self.frame_count / (end_time - self.start_time))
+            print('FPS:', fps)
+            accuracy = round(prediction * 100, 2)
+            print('Accuracy:', accuracy, '%')
+            self.frame_count = 0
+            self.start_time = end_time
         
-        # # Save the frames if fire is detected.
-        # if self.recording:
-        #     if self.out is None:
-        #         self.out = cv2.VideoWriter('video.mp4', self.fourcc, fps, (frame.shape[1], frame.shape[0]))
-        #     self.out.write(frame)
-        #     elapsed_time = time.time() - self.recording_start_time
-        #     if elapsed_time > 10 or self.out.get(cv2.CAP_PROP_POS_FRAMES) * self.out.get(cv2.CAP_PROP_FPS) * 0.000001 > 2:
-        #         self.recording = False
-        #         self.out.release()
-        #         self.out = None
+        # Save the frames if fire is detected.
+        try:
+            if self.recording:
+                if self.out is None:
+                    print("Called 0")
+                    self.out = cv2.VideoWriter('video.mp4', self.fourcc, fps, (frame.shape[1], frame.shape[0]))
+                print("Called 1")
+                self.out.write(frame)
+                print("Called 2")
+                elapsed_time = time.time() - self.recording_start_time
+                print("Called 3")
+                if elapsed_time > 10 or self.out.get(cv2.CAP_PROP_POS_FRAMES) * self.out.get(cv2.CAP_PROP_FPS) * 0.000001 > 2:
+                    self.recording = False
+                    self.out.release()
+                    self.out = None
+                print("Called 4")
+        except Exception as e:
+            print("Error:",e)
 
         return video_frame
     
