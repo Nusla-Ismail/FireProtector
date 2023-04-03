@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fireprotector/views/home.dart';
 import 'package:fireprotector/views/page_selector.dart';
 import 'package:fireprotector/views/register.dart';
 import 'package:fireprotector/widgets/large_button.dart';
@@ -36,8 +37,11 @@ class _LoginState extends State<Login> {
         email: emailController.text,
         password: passwordController.text,
       );
-
       Navigator.pop(context);
+      Navigator.push(
+        context,
+        CupertinoPageRoute(builder: (context) => PageSelector()),
+      );
     } on FirebaseAuthException catch (e){
       if (e.code == 'user-not-found') {
         ToastBar(text: 'No user found for that email', color: Colors.red).show();
