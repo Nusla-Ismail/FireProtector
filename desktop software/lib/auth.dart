@@ -5,6 +5,8 @@ import 'package:fireprotector_camera/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'p2pVideo.dart';
+
 class Auth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,7 @@ class Auth extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Home();
+          return P2PVideo();
         } else {
           return Login();
         }
