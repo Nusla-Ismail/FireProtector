@@ -94,12 +94,24 @@ class VideoTransformTrack(MediaStreamTrack):
                 if self.out is not None:
                     self.out.release()
                     self.out = None
-                    await self.upload_to_storage()
-                    await self.create_fire_case()
+
+                    users_doc_ref = db.collection('users').document(str(uid))
+                    users_doc = users_doc_ref.get()
+
+
                     try:
-                        await self.fire_notification()
+                        if users_doc.exists:
+                            isReported = users_doc.to_dict()["isFire"]
+                            if isReported == False:
+                                await self.upload_to_storage()
+                                await self.create_fire_case()
+                                await self.fire_notification()
+                        else:
+                            await self.upload_to_storage()
+                            await self.create_fire_case()
+                            await self.fire_notification()
                     except Exception as e:
-                        print("Error: ",e)
+                        print("Error:",e)
 
         
 
@@ -213,6 +225,8 @@ class VideoTransformTrack(MediaStreamTrack):
             )
 
             last_case_doc_ref.update({u'id': current_case_id})
+
+            users_doc_ref.update({u'isFire': True})
             
         except Exception as e:
             print("Error: ",e)
