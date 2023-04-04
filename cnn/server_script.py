@@ -77,6 +77,7 @@ class VideoTransformTrack(MediaStreamTrack):
                 if self.out is not None:
                     self.out.release()
                     self.out = None
+                    
         
 
         self.frame_count += 1
@@ -93,20 +94,24 @@ class VideoTransformTrack(MediaStreamTrack):
         
         # Save the frames if fire is detected.
         try:
+            global frame_rgb
             if self.recording:
                 if self.out is None:
                     print("Called 0")
-                    self.out = cv2.VideoWriter('video.mp4', self.fourcc, fps, (frame.shape[1], frame.shape[0]))
+                    self.out =  cv2.VideoWriter('video.mp4', self.fourcc, fps, (frame.shape[1], frame.shape[0]))
                 print("Called 1")
-                self.out.write(frame)
+                frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                self.out.write(frame_rgb)
                 print("Called 2")
+                print("recording_start_time",self.recording_start_time)
                 elapsed_time = time.time() - self.recording_start_time
+                print("Elapsed Time:",elapsed_time)
                 print("Called 3")
                 if elapsed_time > 10 or self.out.get(cv2.CAP_PROP_POS_FRAMES) * self.out.get(cv2.CAP_PROP_FPS) * 0.000001 > 2:
                     self.recording = False
                     self.out.release()
                     self.out = None
-                print("Called 4")
+                    print("Called 4")
         except Exception as e:
             print("Error:",e)
 
