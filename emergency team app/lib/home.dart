@@ -3,8 +3,9 @@ import 'package:fireprotector_emergency_team/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'contact.dart';
+import 'package:fireprotector_emergency_team/contact.dart';
+
+
 
 class Home extends StatelessWidget {
 
@@ -190,8 +191,11 @@ class Home extends StatelessWidget {
                                             "92/2 Main Street,Colombo",
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
+
                                       ),
+
                                     ],
+
                                   ),
                                 ],
                               ),
@@ -223,5 +227,6 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+
   }
 }
