@@ -60,6 +60,7 @@ class Confirmation extends StatelessWidget {
               ),
               MediumButton(
                 onPressed: (){
+                  Navigator.pop(context);
                 },
                 text: "False Alarm",
                 color: kRed,
