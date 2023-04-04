@@ -280,7 +280,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "000123123123",
+                                            "000123128673",
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
@@ -309,7 +309,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "2023/03/09",
+                                            "2023/03/12",
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
@@ -338,7 +338,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "09:00",
+                                            "14:00",
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
@@ -367,7 +367,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "92/2 Main Street,Colombo",
+                                            "03/B,Havelock,Colombo",
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
 
