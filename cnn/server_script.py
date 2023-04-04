@@ -8,12 +8,12 @@ import tensorflow as tf
 import numpy as np
 import time
 import firebase_admin
-from firebase_admin import credentials
 from firebase_admin import firestore
+from firebase_admin import credentials, initialize_app, storage
 
 cred = credentials.Certificate("service-account-file.json")
-app = firebase_admin.initialize_app(cred)
-firestore_client = firestore.client()
+app = initialize_app(cred, {'storageBucket': 'fireprotector-c6a91.appspot.com'})
+db = firestore.client()
 
 relay = MediaRelay()
 
@@ -77,7 +77,12 @@ class VideoTransformTrack(MediaStreamTrack):
                 if self.out is not None:
                     self.out.release()
                     self.out = None
-                    
+                    await self.upload_to_storage()
+                    try:
+                        await self.create_fire_case()
+                    except Exception as e:
+                        print("Error: ",e)
+
         
 
         self.frame_count += 1
@@ -112,10 +117,52 @@ class VideoTransformTrack(MediaStreamTrack):
                     self.out.release()
                     self.out = None
                     print("Called 4")
+                    await self.upload_to_storage()
+                    await self.create_fire_case()
         except Exception as e:
             print("Error:",e)
 
         return video_frame
+    
+    async def upload_to_storage(self):
+        bucket = storage.bucket()
+        blob = bucket.blob('video.mp4')
+        blob.upload_from_filename('video.mp4')
+        blob.make_public()
+        print("Uploaded to Firebase Storage:", blob.public_url)
+
+    async def create_fire_case(self):
+        try:
+            last_case_doc_ref = db.collection('currect_case_id').document('currect_case_id')
+            last_case_doc = last_case_doc_ref.get()
+
+            if last_case_doc.exists:
+                global last_case_id
+                last_case_id = last_case_doc.to_dict()["id"]
+                print('Last Case ID:',last_case_id)
+            else:
+                print(u'No such document!')
+
+            current_case_id = last_case_id+1
+
+            print("Current Case:",current_case_id)
+
+            fire_cases_doc = db.collection("fire_cases").document(str(current_case_id))
+            fire_cases_doc.set(
+                {
+                "case_id": current_case_id,
+                "user_id" : uid
+                }
+            )
+
+            last_case_doc_ref.update({u'id': current_case_id})
+            
+
+
+
+
+        except Exception as e:
+            print("Error: ",e)
     
 
 async def feed_server(request):
@@ -131,6 +178,8 @@ async def feed_server(request):
         @channel.on("message")
         async def on_message(message):
             print("Received message:", message)
+            global uid
+            uid = message
 
     @pc.on("connectionstatechange")
     async def on_connectionstatechange():
