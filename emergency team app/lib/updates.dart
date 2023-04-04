@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:marquee/marquee.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
 import '../widgets/medium_button.dart';
@@ -22,17 +23,7 @@ class _UpdatesState extends State<Updates> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: EdgeInsets.all(10.w),
-        child: FloatingActionButton(
-          elevation: 5,
-          onPressed: (){
 
-          },
-          backgroundColor: kPrimaryColor,
-          child: Icon(Icons.location_on_outlined),
-        ),
-      ),
       appBar: AppBar(
         title: Text(
             "Updates",
@@ -165,7 +156,7 @@ class _UpdatesState extends State<Updates> {
                                   padding: EdgeInsets.only(left: 1.w),
                                   child: Text(
                                     "18:00",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style: Theme.of(context).textTheme.titleSmall,
                                   ),
                                 ),
                                 SizedBox(
@@ -173,42 +164,42 @@ class _UpdatesState extends State<Updates> {
                                 ),
                                 Text(
                                   "Emergency Team Dispatched",
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(
                                   height: 3.h,
                                 ),
                                 Text(
                                   "18:00",
-                                  style: Theme.of(context).textTheme.subtitle2,
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 ),
                                 SizedBox(
                                   height: 42.h,
                                 ),
                                 Text(
                                   "Emergency Team Arrived",
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(
                                   height: 3.h,
                                 ),
                                 Text(
                                   "18:00",
-                                  style: Theme.of(context).textTheme.subtitle2,
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 ),
                                 SizedBox(
                                   height: 45.h,
                                 ),
                                 Text(
                                   "Start to Extinguishing the Fire",
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(
                                   height: 3.h,
                                 ),
                                 Text(
                                   "18:00",
-                                  style: Theme.of(context).textTheme.subtitle2,
+                                  style: Theme.of(context).textTheme.titleSmall,
                                 ),
                                 SizedBox(
                                   height: 43.h,
@@ -217,7 +208,7 @@ class _UpdatesState extends State<Updates> {
                                   height: 20.h,
                                   child: Marquee(
                                     text: "Emergency Team put out the Fire",
-                                    style: Theme.of(context).textTheme.subtitle1,
+                                    style: Theme.of(context).textTheme.titleMedium,
                                     scrollAxis: Axis.horizontal,
                                     blankSpace: 50,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,7 +244,9 @@ class _UpdatesState extends State<Updates> {
                 height: 40.h,
               ),
               MediumButton(
-                onPressed: (){},
+                onPressed: (){
+
+                },
                 text: "Team Dispatched",
                 color: kGreen,
               ),
@@ -268,3 +261,4 @@ class _UpdatesState extends State<Updates> {
 
   }
 }
+
