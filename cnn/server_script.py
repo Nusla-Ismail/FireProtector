@@ -56,6 +56,7 @@ class VideoTransformTrack(MediaStreamTrack):
     out = None
     recording = False
     recording_start_time = 0
+    start_timer = True
 
     def __init__(self, track):
         super().__init__()
@@ -86,32 +87,12 @@ class VideoTransformTrack(MediaStreamTrack):
             print("Fire")
             if self.frame_count == 0:
                 self.recording = True
-                self.recording_start_time = time.time()
+                if self.start_timer:
+                    self.recording_start_time = time.time()
         else:
             print("Not Fire")
-            if self.recording:
-                self.recording = False
-                if self.out is not None:
-                    self.out.release()
-                    self.out = None
 
-                    users_doc_ref = db.collection('users').document(str(uid))
-                    users_doc = users_doc_ref.get()
-
-
-                    try:
-                        if users_doc.exists:
-                            isReported = users_doc.to_dict()["isFire"]
-                            if isReported == False:
-                                await self.upload_to_storage()
-                                await self.create_fire_case()
-                                await self.fire_notification()
-                        else:
-                            await self.upload_to_storage()
-                            await self.create_fire_case()
-                            await self.fire_notification()
-                    except Exception as e:
-                        print("Error:",e)
+                    
 
         
 
@@ -131,6 +112,8 @@ class VideoTransformTrack(MediaStreamTrack):
         try:
             global frame_rgb
             if self.recording:
+                print("Called 00")
+                self.start_timer = False
                 if self.out is None:
                     print("Called 0")
                     self.out =  cv2.VideoWriter('video.mp4', self.fourcc, fps, (frame.shape[1], frame.shape[0]))
@@ -143,12 +126,28 @@ class VideoTransformTrack(MediaStreamTrack):
                 print("Elapsed Time:",elapsed_time)
                 print("Called 3")
                 if elapsed_time > 10 or self.out.get(cv2.CAP_PROP_POS_FRAMES) * self.out.get(cv2.CAP_PROP_FPS) * 0.000001 > 2:
+                    self.start_timer = True
                     self.recording = False
                     self.out.release()
                     self.out = None
                     print("Called 4")
-                    await self.upload_to_storage()
-                    await self.create_fire_case()
+                    
+                    users_doc_ref = db.collection('users').document(str(uid))
+                    users_doc = users_doc_ref.get()
+
+                    try:
+                        if users_doc.exists:
+                            isReported = users_doc.to_dict()["isFire"]
+                            if isReported == False:
+                                await self.upload_to_storage()
+                                await self.create_fire_case()
+                                await self.fire_notification()
+                        else:
+                            await self.upload_to_storage()
+                            await self.create_fire_case()
+                            await self.fire_notification()
+                    except Exception as e:
+                        print("Error:",e)
 
         except Exception as e:
             print("Error:",e)
@@ -197,7 +196,7 @@ class VideoTransformTrack(MediaStreamTrack):
 
             # set timezone to Sri Lanka
             timezone = pytz.timezone('Asia/Colombo')
-
+            
             # get current date and time
             current_datetime = datetime.datetime.now(timezone)
 
@@ -297,14 +296,6 @@ async def feed_server(request):
         content_type="application/json",
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
-        ),
-    )
-
-def root(request):
-    return web.Response(
-        content_type="application/json",
-        text=json.dumps(
-            {"connection": "success"}
         ),
     )
 
