@@ -1,0 +1,59 @@
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    GestureDetector(
+      onTap: () async {
+        final String facebookUrl = 'https://www.facebook.com/yourpage';
+        try {
+          if (await canLaunch(facebookUrl)) {
+            await launch(facebookUrl);
+          } else {
+            throw 'Could not launch Facebook URL';
+          }
+        } catch (e) {
+          print('Error launching Facebook URL: $e');
+        }
+      },
+      child: Image.asset(
+        "assets/images/facebook.png",
+        width: 40.w,
+      ),
+    ),
+    GestureDetector(
+      onTap: () async {
+        final String instagramUrl = 'https://www.instagram.com/yourpage';
+        try {
+          if (await canLaunch(instagramUrl)) {
+            await launch(instagramUrl);
+          } else {
+            throw 'Could not launch Instagram URL';
+          }
+        } catch (e) {
+          print('Error launching Instagram URL: $e');
+        }
+      },
+      child: Image.asset(
+        "assets/images/instagram.png",
+        width: 40.w,
+      ),
+    ),
+    GestureDetector(
+      onTap: () async {
+        final String twitterUrl = 'https://www.twitter.com/yourpage';
+        try {
+          if (await canLaunch(twitterUrl)) {
+            await launch(twitterUrl);
+          } else {
+            throw 'Could not launch Twitter URL';
+          }
+        } catch (e) {
+          print('Error launching Twitter URL: $e');
+        }
+      },
+      child: Image.asset(
+        "assets/images/twitter.png",
+        width: 40.w,
+      ),
+    ),
+  ],
+),

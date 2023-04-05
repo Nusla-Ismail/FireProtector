@@ -1,13 +1,30 @@
-import 'package:fireprotector_emergency_team/main.dart';
 import 'package:fireprotector_emergency_team/updates.dart';
 import 'package:fireprotector_emergency_team/widgets/medium_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fireprotector_emergency_team/constants.dart';
+import 'package:video_player/video_player.dart';
 
-import 'constants.dart';
+class Confirmation extends StatefulWidget {
+  @override
+  _ConfirmationState createState() => _ConfirmationState();
+}
 
-class Confirmation extends StatelessWidget {
+class _ConfirmationState extends State<Confirmation> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(
+        'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4')
+      ..initialize().then((_) {
+        setState(() {});
+        _controller.play();
+        _controller.setLooping(true);
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +32,7 @@ class Confirmation extends StatelessWidget {
       appBar: AppBar(
         title: Text(
             "Confirmation",
-            style: Theme.of(context).textTheme.headline1
+            style: Theme.of(context).textTheme.displayLarge
         ),
         centerTitle: true,
       ),
@@ -38,11 +55,13 @@ class Confirmation extends StatelessWidget {
                 height: 300,
                 width: double.infinity,
                 color: Colors.amber,
-                child: Center(
-                  child: Text(
-                    "Live Video",
-                    style: Theme.of(context).textTheme.button,
-                  ),
+                child: _controller.value.isInitialized
+                    ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+                    : Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
               Expanded(child: SizedBox()),
@@ -73,5 +92,11 @@ class Confirmation extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 }

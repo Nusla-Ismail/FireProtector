@@ -14,12 +14,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  //await dotenv.load(fileName: ".env");
 
-  OneSignal.shared.setAppId(dotenv.env["ONESIGNAL"]!);
-  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-    print("Accepted permission: $accepted");
-  });
+  //OneSignal.shared.setAppId(dotenv.env["ONESIGNAL"]!);
+  //OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+    //print("Accepted permission: $accepted");
+  //});
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

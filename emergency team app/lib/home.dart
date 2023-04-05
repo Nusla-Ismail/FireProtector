@@ -4,10 +4,46 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fireprotector_emergency_team/contact.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final CollectionReference usersCollection =
+  FirebaseFirestore.instance.collection('fire_cases');
+  int caseID = 0;
+  String date = '';
+  String time = '';
+  String location = '';
 
 
+  Future<void> getData() async {
+    QuerySnapshot querySnapshot = await usersCollection.get();
+    if (querySnapshot.docs.isEmpty) {
+      // Handle no data available
+      return;
+    }
+    // Get data from the first document in the collection
+    Map<String, dynamic> fireCase =
+    querySnapshot.docs.first.data() as Map<String, dynamic>;
+    setState(() {
+      date = fireCase['date'] ?? '';
+      location = fireCase['location'] ?? '' ;
+      time = fireCase['time'] ?? '';
+      caseID = fireCase['case_id'] ?? '';
+    });
+  }
 
-class Home extends StatelessWidget {
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +137,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "000123123123",
+                                            caseID.toString(),
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
@@ -130,7 +166,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "2023/03/09",
+                                            date,
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
@@ -159,7 +195,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "09:00",
+                                            time,
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       ),
@@ -188,7 +224,7 @@ class Home extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20.w),
                                         child: Text(
-                                            "92/2 Main Street,Colombo",
+                                            location,
                                             style: Theme.of(context).textTheme.bodyText1
                                         ),
 
