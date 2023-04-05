@@ -1,7 +1,10 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
 
@@ -17,6 +20,10 @@ class Tile extends StatelessWidget {
         Map<String, dynamic> fireCase = document.data() as Map<String, dynamic>;
 
         String date = fireCase['date'] ?? '';
+        String location = fireCase['location'] ?? '';
+        String time = fireCase['time'] ?? '';
+        String user_id = fireCase['user_id'] ?? '';
+        String video_url = fireCase['video_url'] ?? '';
 
         return Card(
           color: Colors.white,

@@ -1,3 +1,5 @@
+
+
 import 'package:fireprotector/constants.dart';
 import 'package:fireprotector/widgets/tile.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,8 +17,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class PreviousFires extends StatelessWidget {
   PreviousFires({Key? key}) : super(key: key);
 
-  Stream<QuerySnapshot> stream =
-      FirebaseFirestore.instance.collection('fire_cases').snapshots();
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +48,36 @@ class PreviousFires extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               StreamBuilder<QuerySnapshot>(
-                stream: stream,
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                stream: FirebaseFirestore.instance.collection('fire_cases').snapshots(),
+                builder: (context,snapshot) {
+                  List<Row>tiles=[];
+                  if (snapshot.hasData)
+                  {
+                    final Clients = snapshot.data?.docs.reversed.toList(); 
+                    for(var Client in Clients! )
+                    {
+                      final tile= Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(Client['date']),
+                          Text(Client['location']),
+                          Text(Client['time']),
+                          Text(Client['user_id']),
+                          Text(Client['video_url'])
+
+                        ],
+                      );
+                      tiles.add(tile);
+
+                    }
+                  }
+
+                  return Expanded(
+                    child:ListView(
+                      children: tiles ,
+                    )
+                  );
+                  /*
                   if (snapshot.hasError) {
                     return Text('Something went wrong');
                   }
@@ -61,7 +90,7 @@ class PreviousFires extends StatelessWidget {
 
                   return Tile(
                     data: fireCases,
-                  );
+                  );*/
                 },
               ),
             ],
