@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+/*
   @override
   void initState(){
     super.initState();
@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
         .collection('users')
         .doc(_auth.currentUser!.uid).update({"notification":oneSignalID});
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(

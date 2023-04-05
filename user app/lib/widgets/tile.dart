@@ -1,75 +1,100 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:fireprotector/constants.dart';
+import 'package:fireprotector/widgets/tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../constants.dart';
 
-class Tile extends StatelessWidget {
-  final List<DocumentSnapshot> data;
 
-  const Tile({required this.data});
+
+
+
+class PreviousFires extends StatelessWidget {
+  PreviousFires({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: data.map((DocumentSnapshot document) {
-        Map<String, dynamic> fireCase = document.data() as Map<String, dynamic>;
-
-        String date = fireCase['date'] ?? '';
-        String location = fireCase['location'] ?? '';
-        String time = fireCase['time'] ?? '';
-        String user_id = fireCase['user_id'] ?? '';
-        String video_url = fireCase['video_url'] ?? '';
-
-        return Card(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.horizontal(right: Radius.circular(10.r)),
-          ),
-          elevation: 3,
-          margin: EdgeInsets.only(bottom: 16.h),
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        date,
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5.w),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: kBtnAsh,
-                      borderRadius: BorderRadius.horizontal(right: Radius.circular(10.r)),
-                    ),
-                    child: SizedBox(
-                      width: 40.w,
-                      child: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                        size: 30.w,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Previous Fires", style: Theme.of(context).textTheme.headline1),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.contact_support_outlined,
+              color: Colors.white,
             ),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/main_back.png"),
+            fit: BoxFit.fill,
           ),
-        );
-      }).toList(),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 35.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('fire_cases').snapshots(),
+                builder: (context,snapshot) {
+                  List<Row>tiles=[];
+                  if (snapshot.hasData)
+                  {
+                    final Clients = snapshot.data?.docs.reversed.toList(); 
+                    for(var Client in Clients! )
+                    {
+                      final tile= Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(Client['date']),
+                          Text(Client['location']),
+                        
+
+                        ],
+                      );
+                      tiles.add(tile);
+
+                    }
+                  }
+
+                  return Expanded(
+                    child:ListView(
+                      children: tiles ,
+                    )
+                  );
+                  /*
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+
+                  List<DocumentSnapshot> fireCases = snapshot.data!.docs;
+
+                  return Tile(
+                    data: fireCases,
+                  );*/
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -61,9 +61,7 @@ class PreviousFires extends StatelessWidget {
                         children: [
                           Text(Client['date']),
                           Text(Client['location']),
-                          Text(Client['time']),
-                          Text(Client['user_id']),
-                          Text(Client['video_url'])
+                       
 
                         ],
                       );
