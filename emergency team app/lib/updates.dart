@@ -10,6 +10,9 @@ import '../widgets/medium_button.dart';
 import 'contact.dart';
 
 class Updates extends StatefulWidget {
+  final int caseID;
+
+  const Updates({super.key, required this.caseID});
 
   @override
   State<Updates> createState() => _UpdatesState();
@@ -19,6 +22,13 @@ class _UpdatesState extends State<Updates> {
   int activeStep = 0;
 
   final int upperBound = 5;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("Case ID: "+widget.caseID.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
