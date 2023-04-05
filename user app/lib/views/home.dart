@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
               FirebaseAuth.instance.signOut();
               Navigator.push(
                 context,
-                CupertinoPageRoute(builder: (context) => Login()),
+                CupertinoPageRoute(builder: (context) => Contact()),
               );
             },
           )

@@ -2,6 +2,7 @@ import 'package:fireprotector_emergency_team/widgets/small_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'constants.dart';
 
@@ -75,10 +76,26 @@ class Contact extends StatelessWidget {
                                     width: 20.w,
                                   ),
                                   Expanded(
+                                    child: SmallButton(
+                                        text: "Send an email",
+                                        color: kBtnAsh,
+                                         onTap: () async {
+                                          final Uri params = Uri(
+                                            scheme: 'mailto',
+                                            path: 'tonyfergusonofficiall@gmail.com',
+                                          );
+                                          final String url = params.toString();
+                                          try {
+                                            if (await canLaunch(url)) {
+                                              await launch(url);
+                                            }
+                                          } catch (e) {
+                                            print('Error launching URL: $e');
+                                          }
+                                        },
 
-                                      child: SmallButton(
-                                          text: "Send an email",
-                                          color: kBtnAsh)),
+                                    ),
+                                ),
                                 ],
                               ),
                             ],
@@ -126,8 +143,17 @@ class Contact extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: GestureDetector(
-                                      onTap: () {
-                                        //TODO: Navigate to Google Maps
+                                      onTap: ()async  {
+                                        final String googleMapsUrl = 'geo:<37.7749>,<-122.4194>';
+                                        try{
+                                          if (await canLaunch(googleMapsUrl)){
+                                            await launch(googleMapsUrl);
+                                          }else{
+                                            throw 'Could not launch Google Maps URL';
+                                          }
+                                        }catch(e){
+                                          print('Error launching Google Maps URL: $e');
+                                        }
                                       },
                                       child: SmallButton(
                                           text: "Find us on map",
@@ -165,18 +191,60 @@ class Contact extends StatelessWidget {
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Image.asset(
-                                    "assets/images/facebook.png",
-                                    width: 40.w,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/instagram.png",
-                                    width: 40.w,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/twitter.png",
-                                    width: 40.w,
-                                  ),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          final String facebookUrl = 'https://www.facebook.com/';
+                                          try {
+                                            if (await canLaunch(facebookUrl)) {
+                                              await launch(facebookUrl);
+                                            } else {
+                                              throw 'Could not launch Facebook URL';
+                                            }
+                                          } catch (e) {
+                                            print('Error launching Facebook URL: $e');
+                                          }
+                                        },
+                                        child: Image.asset(
+                                          "assets/images/facebook.png",
+                                          width: 40.w,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          final String instagramUrl = 'https://www.instagram.com/';
+                                          try {
+                                            if (await canLaunch(instagramUrl)) {
+                                              await launch(instagramUrl);
+                                            } else {
+                                              throw 'Could not launch Instagram URL';
+                                            }
+                                          } catch (e) {
+                                            print('Error launching Instagram URL: $e');
+                                          }
+                                        },
+                                        child: Image.asset(
+                                          "assets/images/instagram.png",
+                                          width: 40.w,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                            onTap: () async {
+                                              final String twitterUrl = 'https://www.twitter.com/';
+                                              try {
+                                                if (await canLaunch(twitterUrl)) {
+                                                  await launch(twitterUrl);
+                                                } else {
+                                                  throw 'Could not launch Twitter URL';
+                                                }
+                                              } catch (e) {
+                                                print('Error launching Twitter URL: $e');
+                                              }
+                                            },
+                                            child: Image.asset(
+                                              "assets/images/twitter.png",
+                                              width: 40.w,
+                                            ),
+                                          ),
                                 ],
                               ),
                             ],
