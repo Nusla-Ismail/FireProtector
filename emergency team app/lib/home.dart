@@ -13,37 +13,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final CollectionReference usersCollection =
-  FirebaseFirestore.instance.collection('fire_cases');
-  int caseID = 0;
-  String date = '';
-  String time = '';
-  String location = '';
 
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<void> getData() async {
-    QuerySnapshot querySnapshot = await usersCollection.get();
-    if (querySnapshot.docs.isEmpty) {
-      // Handle no data available
-      return;
-    }
-    // Get data from the first document in the collection
-    Map<String, dynamic> fireCase =
-    querySnapshot.docs.first.data() as Map<String, dynamic>;
-    setState(() {
-      date = fireCase['date'] ?? '';
-      location = fireCase['location'] ?? '' ;
-      time = fireCase['time'] ?? '';
-      caseID = fireCase['case_id'] ?? '';
-    });
+  late int caseID;
+  late String date;
+  late String time;
+  late String location;
+
+   Future<List<QueryDocumentSnapshot>> getData() async {
+    QuerySnapshot querySnapshot = await _db.collection("fire_cases").get();
+    return querySnapshot.docs;
   }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,187 +59,196 @@ class _HomeState extends State<Home> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 10.w),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => Confirmation()),
+          padding: EdgeInsets.fromLTRB(10.w, 30.h, 10.w, 0),
+          child: RefreshIndicator(
+            onRefresh: getData,
+            child:
+            FutureBuilder<List<QueryDocumentSnapshot>>(
+              future: getData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
                   );
-                },
-                child: Card(
-                  elevation: 5,
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.horizontal(right: Radius.circular(15.r)),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    child: IntrinsicHeight(
-                      child: Row(
-                        children: [
-                          //Hospital
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  color: Colors.black,
-                                  width: 5.w,
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Text("noda");
+                }
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, i) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 10.h),
+                      child: Card(
+                        elevation: 5,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.horizontal(right: Radius.circular(15.r)),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                //Hospital
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        color: Colors.black,
+                                        width: 5.w,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 13.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(Icons.assignment_late_outlined, color: kBtnAsh, size: 18.w),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      SizedBox(
-                                        width: 70.w,
-                                        child: Text(
-                                            'Case ID',
-                                            style: Theme.of(context).textTheme.labelMedium
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 13.h),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(Icons.assignment_late_outlined, color: kBtnAsh, size: 18.w),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            SizedBox(
+                                              width: 70.w,
+                                              child: Text(
+                                                  'Case ID',
+                                                  style: Theme.of(context).textTheme.labelMedium
+                                              ),
+                                            ),
+                                            Text(
+                                              ":",
+                                              style: Theme.of(context).textTheme.labelMedium,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 20.w),
+                                              child: Text(
+                                                  snapshot.data![i]['case_id'].toString(),
+                                                  style: Theme.of(context).textTheme.bodyText1
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      Text(
-                                        ":",
-                                        style: Theme.of(context).textTheme.labelMedium,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 20.w),
-                                        child: Text(
-                                            caseID.toString(),
-                                            style: Theme.of(context).textTheme.bodyText1
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
-                                      ),
-                                    ],
+                                        Row(
+                                          children: [
+                                            Icon(Icons.today, color: kBtnAsh, size: 18.w),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            SizedBox(
+                                              width: 70.w,
+                                              child: Text(
+                                                  'Date',
+                                                  style: Theme.of(context).textTheme.labelMedium
+                                              ),
+                                            ),
+                                            Text(
+                                              ":",
+                                              style: Theme.of(context).textTheme.labelMedium,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 20.w),
+                                              child: Text(
+                                                  snapshot.data![i]['date'],
+                                                  style: Theme.of(context).textTheme.bodyText1
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.schedule, color: kBtnAsh, size: 18.w),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            SizedBox(
+                                              width: 70.w,
+                                              child: Text(
+                                                  'Time',
+                                                  style: Theme.of(context).textTheme.labelMedium
+                                              ),
+                                            ),
+                                            Text(
+                                              ":",
+                                              style: Theme.of(context).textTheme.labelMedium,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 20.w),
+                                              child: Text(
+                                                  snapshot.data![i]['time'],
+                                                  style: Theme.of(context).textTheme.bodyText1
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.location_on, color: kBtnAsh, size: 18.w),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            SizedBox(
+                                              width: 70.w,
+                                              child: Text(
+                                                  'Location',
+                                                  style: Theme.of(context).textTheme.labelMedium
+                                              ),
+                                            ),
+                                            Text(
+                                              ":",
+                                              style: Theme.of(context).textTheme.labelMedium,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 20.w),
+                                              child: Text(
+                                                  snapshot!.data![i]['location'],
+                                                  style: Theme.of(context).textTheme.bodyText1
+                                              ),
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.today, color: kBtnAsh, size: 18.w),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      SizedBox(
-                                        width: 70.w,
-                                        child: Text(
-                                            'Date',
-                                            style: Theme.of(context).textTheme.labelMedium
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.horizontal(right: Radius.circular(10.r)),
+                                          color: kBtnAsh,
                                         ),
+                                        width: 30.w,
+                                        child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                                       ),
-                                      Text(
-                                        ":",
-                                        style: Theme.of(context).textTheme.labelMedium,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 20.w),
-                                        child: Text(
-                                            date,
-                                            style: Theme.of(context).textTheme.bodyText1
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.schedule, color: kBtnAsh, size: 18.w),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      SizedBox(
-                                        width: 70.w,
-                                        child: Text(
-                                            'Time',
-                                            style: Theme.of(context).textTheme.labelMedium
-                                        ),
-                                      ),
-                                      Text(
-                                        ":",
-                                        style: Theme.of(context).textTheme.labelMedium,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 20.w),
-                                        child: Text(
-                                            time,
-                                            style: Theme.of(context).textTheme.bodyText1
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.location_on, color: kBtnAsh, size: 18.w),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      SizedBox(
-                                        width: 70.w,
-                                        child: Text(
-                                            'Location',
-                                            style: Theme.of(context).textTheme.labelMedium
-                                        ),
-                                      ),
-                                      Text(
-                                        ":",
-                                        style: Theme.of(context).textTheme.labelMedium,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 20.w),
-                                        child: Text(
-                                            location,
-                                            style: Theme.of(context).textTheme.bodyText1
-                                        ),
-
-                                      ),
-
-                                    ],
-
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.horizontal(right: Radius.circular(10.r)),
-                                    color: kBtnAsh,
-                                  ),
-                                  width: 30.w,
-                                  child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),
