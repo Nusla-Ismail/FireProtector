@@ -76,7 +76,7 @@ class _ConfirmationState extends State<Confirmation> {
               MediumButton(
                 onPressed: (){
                   final ref = _db.collection("fire_cases").doc(widget.caseID.toString());
-                  ref.update({"isConfirmed":true});
+                  ref.update({"isConfirmed":true, "activity" : 1});
                   Navigator.push(
                       context,
                       CupertinoPageRoute(builder: (context) => Updates(caseID: widget.caseID)));

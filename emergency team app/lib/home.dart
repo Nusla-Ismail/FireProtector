@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fireprotector_emergency_team/contact.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -82,8 +81,15 @@ class _HomeState extends State<Home> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Text(
-                      'No data to show!', style: TextStyle(fontSize: 20.sp));
+                  return Stack(
+                    children: [
+                      ListView(),
+                      Center(
+                        child: Text(
+                            'No data to show!', style: TextStyle(fontSize: 20.sp)),
+                      ),
+                    ],
+                  );
                 }
                 return ListView.builder(
                     itemCount: snapshot.data!.length,
