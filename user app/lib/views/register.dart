@@ -24,7 +24,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final fireController = TextEditingController();
+  final locationController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -35,7 +35,7 @@ class _RegisterState extends State<Register> {
     await _firestore
         .collection('users')
         .doc(user.uid)
-        .set({'name': user.name, 'id': user.uid, 'email': user.email});
+        .set({'name': user.name, 'id': user.uid, 'email': user.email, 'isFire' : false, 'location' : user.location});
   }
 
   void signUp(BuildContext context) async {
@@ -57,7 +57,7 @@ class _RegisterState extends State<Register> {
 
       Navigator.pop(context);
 
-      User user = User(_auth.currentUser!.uid, nameController.text.trim(), emailController.text.trim());
+      User user = User(_auth.currentUser!.uid, nameController.text.trim(), emailController.text.trim(), locationController.text.trim());
 
       createUser(user);
 
@@ -121,7 +121,7 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         height: 30.h,
                       ),
-                      UnderlinedInputField(labelText: "Nearest Fire Station", controller: fireController),
+                      UnderlinedInputField(labelText: "Location", controller: locationController),
                       SizedBox(
                         height: 20.h,
                       ),

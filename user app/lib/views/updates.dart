@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,9 +17,23 @@ class Updates extends StatefulWidget {
 }
 
 class _UpdatesState extends State<Updates> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   int activeStep = 0;
-
   final int upperBound = 5;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getFireCase();
+  }
+
+  getFireCase()async{
+    var sub = await _firestore.collection("fire_cases").where("user_id",isEqualTo: _auth.currentUser!.uid).orderBy("timestamp",descending: true).get();
+    activeStep = sub.docs[0]['activity'];
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {

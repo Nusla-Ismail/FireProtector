@@ -46,6 +46,7 @@ class _HomeState extends State<PageSelector> with SingleTickerProviderStateMixin
           ),
         ),
       body: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
         controller: controller,
         children: [
           Home(),
