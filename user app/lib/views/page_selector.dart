@@ -23,7 +23,7 @@ class _HomeState extends State<PageSelector> with SingleTickerProviderStateMixin
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = TabController(length: 3, vsync: this);
+    controller = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -40,7 +40,6 @@ class _HomeState extends State<PageSelector> with SingleTickerProviderStateMixin
             items: [
               TabItem(icon: Icons.home, title: 'Home'),
               TabItem(icon: Icons.notifications_active, title: 'Updates'),
-              TabItem(icon: Icons.history, title: 'Previous Fires'),
             ],
             onTap: (int){},
           ),
@@ -51,7 +50,6 @@ class _HomeState extends State<PageSelector> with SingleTickerProviderStateMixin
         children: [
           Home(),
           Updates(),
-          PreviousFires(),
         ],
       )
     );

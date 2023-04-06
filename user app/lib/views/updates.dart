@@ -21,6 +21,7 @@ class _UpdatesState extends State<Updates> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   int activeStep = 0;
   final int upperBound = 5;
+  bool hasData = false;
 
   @override
   void initState() {
@@ -31,7 +32,17 @@ class _UpdatesState extends State<Updates> {
 
   getFireCase()async{
     var sub = await _firestore.collection("fire_cases").where("user_id",isEqualTo: _auth.currentUser!.uid).orderBy("timestamp",descending: true).get();
-    activeStep = sub.docs[0]['activity'];
+    if(sub.docs.isEmpty){
+      hasData = false;
+      setState(() {});
+      return;
+    } else {
+      if(sub.docs[0]['isFire']){
+        hasData = true;
+      }
+      activeStep = sub.docs[0]['activity'];
+    }
+
     setState(() {});
   }
 
@@ -63,7 +74,7 @@ class _UpdatesState extends State<Updates> {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
+          child: hasData ? Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
@@ -231,7 +242,13 @@ class _UpdatesState extends State<Updates> {
                 height: 40.h,
               ),
             ],
-          ),
+          ) : Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("No fire case Reported", style: TextStyle(fontSize: 20.sp),),
+                ],
+              )),
         ),
       ),
     );

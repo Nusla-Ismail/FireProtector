@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   VideoPlayerController? _controller;
   bool isConfirmed = false;
+  bool hasData = false;
 
   @override
   void initState(){
@@ -35,15 +36,25 @@ class _HomeState extends State<Home> {
 
   getFireCase()async{
     var sub = await _firestore.collection("fire_cases").where("user_id",isEqualTo: _auth.currentUser!.uid).orderBy("timestamp",descending: true).get();
-    var fireCase = sub.docs[0];
-    isConfirmed = fireCase['isConfirmed'];
-
-    _controller = VideoPlayerController.network(fireCase['video_url'])
-      ..initialize().then((_) {
-        setState(() {});
-        _controller!.play();
-        _controller!.setLooping(true);
-      });
+    if(sub.docs.isEmpty){
+      hasData = false;
+      setState(() {});
+      return;
+    } else {
+      var fireCase = sub.docs[0];
+      isConfirmed = fireCase['isConfirmed'];
+      if(fireCase['isFire']){
+        hasData = true;
+      }
+      _controller = VideoPlayerController.network(fireCase['video_url'])
+        ..initialize().then((_) {
+          setState(() {});
+          _controller!.play();
+          _controller!.setLooping(true);
+        });
+      setState(() {});
+    }
+    
   }
 
 
@@ -96,117 +107,127 @@ class _HomeState extends State<Home> {
             onRefresh: () async{
               getFireCase();
             },
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(6.r)),
-                      border: Border.all(color: isConfirmed? kGreen : kRed, width: 2),
+            child: Center(
+              child: SingleChildScrollView(
+                child: hasData ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 20.h,
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(2.w),
-                      child: Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.horizontal(left: Radius.circular(4.r)),
-                              color: isConfirmed? kGreen : kRed,
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(6.r)),
+                        border: Border.all(color: isConfirmed? kGreen : kRed, width: 2),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(2.w),
+                        child: Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.horizontal(left: Radius.circular(4.r)),
+                                color: isConfirmed? kGreen : kRed,
+                              ),
+                              padding: EdgeInsets.all(6.w),
+                              child: Image.asset("assets/images/announcement_icon.png", width: 22.w),
                             ),
-                            padding: EdgeInsets.all(6.w),
-                            child: Image.asset("assets/images/announcement_icon.png", width: 22.w),
-                          ),
-                          SizedBox(
-                            width: 7.w,
-                          ),
-                          Flexible(
-                            child: Text(
-                              isConfirmed? "Fire Station is aware about the fire":"Fire Station is not aware about the fire",
-                              style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16.sp),
-                              maxLines: null,
+                            SizedBox(
+                              width: 7.w,
                             ),
-                          ),
-                        ],
+                            Flexible(
+                              child: Text(
+                                isConfirmed? "Fire Station is aware about the fire":"Fire Station is not aware about the fire",
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16.sp),
+                                maxLines: null,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Container(
-                    height: 300,
-                    width: double.infinity,
-                    color: Colors.amber,
-                    child: _controller != null ?
-                    AspectRatio(
-                      aspectRatio: _controller!.value.aspectRatio,
-                      child: VideoPlayer(_controller!),
-                    ) : Center(child: CircularProgressIndicator(),
+                    SizedBox(
+                      height: 30.h,
                     ),
-                  ),
-                  SizedBox(
-                    height: 90.h,
-                  ),
-                  MediumButton(
-                    onPressed: () => launch("tel://911"),
-                    text: "Contact Emergency Team",
-                    color: kBtnAsh,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  MediumButton(
-                    onPressed: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("False Alarm"),
-                            content: Text("Are you sure you want to report a false alarm? This will notify the fire station that no fire is detected."),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text("Cancel"),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              TextButton(
-                                child: Text("Confirm"),
-                                onPressed: () {
-                                  FirebaseAuth.instance.signOut();
-                                  Navigator.of(context).pop();
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text("False Alarm Reported"),
-                                        content: Text("The fire station has been notified that no fire is detected."),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: Text("OK"),
-                                            onPressed: () => Navigator.of(context).pop(),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: "False Alarm",
-                    color: kRed,
-                  ),
+                    Container(
+                      height: 300,
+                      width: double.infinity,
+                      color: Colors.amber,
+                      child: _controller != null ?
+                      AspectRatio(
+                        aspectRatio: _controller!.value.aspectRatio,
+                        child: VideoPlayer(_controller!),
+                      ) : Center(child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 90.h,
+                    ),
+                    MediumButton(
+                      onPressed: () => launch("tel://911"),
+                      text: "Contact Emergency Team",
+                      color: kBtnAsh,
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    MediumButton(
+                      onPressed: (){
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("False Alarm"),
+                              content: Text("Are you sure you want to report a false alarm? This will notify the fire station that no fire is detected."),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text("Cancel"),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                                TextButton(
+                                  child: Text("Confirm"),
+                                  onPressed: () {
+                                    FirebaseAuth.instance.signOut();
+                                    Navigator.of(context).pop();
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("False Alarm Reported"),
+                                          content: Text("The fire station has been notified that no fire is detected."),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: Text("OK"),
+                                              onPressed: () => Navigator.of(context).pop(),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      text: "False Alarm",
+                      color: kRed,
+                    ),
 
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                ],
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                  ],
+                ) : Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 50.h),
+                      child: Column(
+                        children: [
+                          Text("No fire case Reported", style: TextStyle(fontSize: 20.sp),),
+                        ],
+                      ),
+                    )),
               ),
             ),
           ),
