@@ -9,4 +9,6 @@ Flutter.
 
 The user must install flutter and dart in the android studio extensions. After installing to access the application on a physical device or an emulator user must figure out the flutter and dart SDK path. Once it is figured, the user has to open each application file separately in android studio.
 
-1st application is the Desktop application where live video feed will be coonected to and the Machine learning model will be deployed.
+1st application is the Desktop application where live video feed will be coonected to and the Machine learning model will be deployed. To test it the webcam must be used.
+
+
