@@ -38,10 +38,10 @@ class _LoginState extends State<Login> {
         password: passwordController.text,
       );
       Navigator.pop(context);
-      Navigator.push(
-        context,
-        CupertinoPageRoute(builder: (context) => PageSelector()),
-      );
+      Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(builder: (context) => PageSelector()),
+              (Route<dynamic> route) => false);
     } on FirebaseAuthException catch (e){
       if (e.code == 'user-not-found') {
         ToastBar(text: 'No user found for that email', color: Colors.red).show();

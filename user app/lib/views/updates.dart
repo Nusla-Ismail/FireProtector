@@ -96,11 +96,11 @@ class _UpdatesState extends State<Updates> {
                                 stepRadius: 22,
                                 icons: [
                                   Icon(Icons.supervised_user_circle, color: Colors.white),
-                                  Icon(Icons.flag),
-                                  Icon(Icons.access_alarm, color: kPrimaryColor),
-                                  Icon(Icons.supervised_user_circle, color: kPrimaryColor),
-                                  Icon(Icons.flag, color: kPrimaryColor),
-                                  Icon(Icons.access_alarm, color: kPrimaryColor),
+                                  Icon(Icons.flag, color: Colors.white),
+                                  Icon(Icons.access_alarm, color: Colors.white),
+                                  Icon(Icons.supervised_user_circle, color: Colors.white),
+                                  Icon(Icons.flag, color: Colors.white),
+                                  Icon(Icons.access_alarm, color: Colors.white),
                                 ],
 
 
@@ -125,7 +125,7 @@ class _UpdatesState extends State<Updates> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 22.h,
                                 ),
                                 Text(
                                   "Notified to Emergency Team",
@@ -134,12 +134,8 @@ class _UpdatesState extends State<Updates> {
                                 SizedBox(
                                   height: 3.h,
                                 ),
-                                Text(
-                                  "18:00",
-                                  style: Theme.of(context).textTheme.subtitle2,
-                                ),
                                 SizedBox(
-                                  height: 42.h,
+                                  height: 58.h,
                                 ),
                                 SizedBox(
                                   height: 20.h,
@@ -161,15 +157,8 @@ class _UpdatesState extends State<Updates> {
                                 SizedBox(
                                   height: 3.h,
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 1.w),
-                                  child: Text(
-                                    "18:00",
-                                    style: Theme.of(context).textTheme.subtitle2,
-                                  ),
-                                ),
                                 SizedBox(
-                                  height: 40.h,
+                                  height: 58.h,
                                 ),
                                 Text(
                                   "Emergency Team Dispatched",
@@ -178,12 +167,8 @@ class _UpdatesState extends State<Updates> {
                                 SizedBox(
                                   height: 3.h,
                                 ),
-                                Text(
-                                  "18:00",
-                                  style: Theme.of(context).textTheme.subtitle2,
-                                ),
                                 SizedBox(
-                                  height: 42.h,
+                                  height: 58.h,
                                 ),
                                 Text(
                                   "Emergency Team Arrived",
@@ -192,12 +177,8 @@ class _UpdatesState extends State<Updates> {
                                 SizedBox(
                                   height: 3.h,
                                 ),
-                                Text(
-                                  "18:00",
-                                  style: Theme.of(context).textTheme.subtitle2,
-                                ),
                                 SizedBox(
-                                  height: 42.h,
+                                  height: 58.h,
                                 ),
                                 Text(
                                   "Start to Extinguishing the Fire",
@@ -206,12 +187,8 @@ class _UpdatesState extends State<Updates> {
                                 SizedBox(
                                   height: 3.h,
                                 ),
-                                Text(
-                                  "18:00",
-                                  style: Theme.of(context).textTheme.subtitle2,
-                                ),
                                 SizedBox(
-                                  height: 42.h,
+                                  height: 65.h,
                                 ),
                                 SizedBox(
                                   height: 20.h,
@@ -232,13 +209,6 @@ class _UpdatesState extends State<Updates> {
                                 ),
                                 SizedBox(
                                   height: 3.h,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 1.w),
-                                  child: Text(
-                                    "18:00",
-                                    style: Theme.of(context).textTheme.subtitle2,
-                                  ),
                                 ),
                               ],
                             ),

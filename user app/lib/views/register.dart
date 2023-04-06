@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fireprotector/models/user_model.dart';
 import 'package:fireprotector/views/home.dart';
 import 'package:fireprotector/views/login.dart';
+import 'package:fireprotector/views/page_selector.dart';
 import 'package:fireprotector/widgets/underlined_input_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -63,11 +64,10 @@ class _RegisterState extends State<Register> {
 
       ToastBar(text: 'Account created successfully', color: Colors.green).show();
 
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(
-              builder: (_) => Home())
-      );
+          CupertinoPageRoute(builder: (context) => PageSelector()),
+              (Route<dynamic> route) => false);
 
     } on auth.FirebaseAuthException catch (e){
       Navigator.pop(context);
