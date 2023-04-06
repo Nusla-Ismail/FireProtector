@@ -7,4 +7,4 @@ VS code,python,
 Dart,
 Flutter.
 
-The user must install flutter and dart in the android studio extensions. After installing to access the application on a physical device or an emulator user must figure out the flutter and dart SDK path.
+The user must install flutter and dart in the android studio extensions. After installing to access the application on a physical device or an emulator user must figure out the flutter and dart SDK path. Once it is figured, the user has to open each application file separately in android studio.
