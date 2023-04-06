@@ -11,5 +11,6 @@ The user must install flutter and dart in the android studio extensions. After i
 
 1st application is the Desktop application where live video feed will be coonected to and the Machine learning model will be deployed. To test it the webcam must be used.
 
-2nd application is the user application where user will get a notification if fire is detected, and the detected fire video will be displayeddd.
+2nd application is the user application where user will get a notification if fire is detected, and the detected fire video will be displayed.  Additionaly the emergency team updates will also be displayed.
+
 
