@@ -13,5 +13,5 @@ The user must install flutter and dart in the android studio extensions. After i
 
 2nd application is the user application where user will get a notification if fire is detected, and the detected fire video will be displayed.  Additionaly the emergency team updates will also be displayed.
 
-3rd application is Emergency team application. This application also displays the video of fire detected and shows the notifications.
+3rd application is Emergency team application. This application also displays the video of fire detected and shows the notifications. This app provides emergency team's live updates to the user.
 
