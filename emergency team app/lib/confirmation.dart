@@ -88,9 +88,16 @@ class _ConfirmationState extends State<Confirmation> {
                 height: 20.h,
               ),
               MediumButton(
-                onPressed: (){
+                onPressed: ()async{
                   final ref = _db.collection("fire_cases").doc(widget.caseID.toString());
                   ref.update({"isFire":false});
+
+                  final get_ref = await ref.get();
+                  final uid = get_ref.data()!["user_id"];
+
+                  final user_ref = _db.collection("users").doc(uid);
+                  user_ref.update({"isFire":false});
+
                   Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) => Home()),
