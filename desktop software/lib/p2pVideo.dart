@@ -281,12 +281,12 @@ class _P2PVideoState extends State<P2PVideo> {
                             ? Colors.amber
                             : _inCalling
                                 ? Colors.red
-                                : Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(15),
+                                : Color(0xff5463FF),
+                        borderRadius: BorderRadius.circular(5),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                            horizontal: 86, vertical: 10),
                         child: _loading
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -297,7 +297,7 @@ class _P2PVideoState extends State<P2PVideo> {
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                       ),
